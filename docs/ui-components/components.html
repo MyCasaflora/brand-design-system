@@ -1,0 +1,1954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{BRAND_NAME}} — UI Component Library</title>
+  <style>
+    /* ============================================
+       DESIGN TOKENS (CSS Custom Properties)
+       ============================================ */
+    :root {
+      /* Colors */
+      --color-primary: {{PRIMARY_COLOR}};
+      --color-primary-hover: {{PRIMARY_COLOR_HOVER}};
+      --color-primary-active: {{PRIMARY_COLOR_ACTIVE}};
+      --color-primary-light: {{PRIMARY_COLOR_LIGHT}};
+      --color-secondary: {{SECONDARY_COLOR}};
+      --color-secondary-hover: {{SECONDARY_COLOR_HOVER}};
+      --color-secondary-active: {{SECONDARY_COLOR_ACTIVE}};
+      --color-accent: {{ACCENT_COLOR}};
+      --color-danger: #dc2626;
+      --color-danger-hover: #b91c1c;
+      --color-danger-active: #991b1b;
+      --color-success: #16a34a;
+      --color-warning: #d97706;
+      --color-info: #2563eb;
+
+      /* Neutrals */
+      --color-white: #ffffff;
+      --color-gray-50: #f9fafb;
+      --color-gray-100: #f3f4f6;
+      --color-gray-200: #e5e7eb;
+      --color-gray-300: #d1d5db;
+      --color-gray-400: #9ca3af;
+      --color-gray-500: #6b7280;
+      --color-gray-600: #4b5563;
+      --color-gray-700: #374151;
+      --color-gray-800: #1f2937;
+      --color-gray-900: #111827;
+      --color-black: #000000;
+
+      /* Text */
+      --color-text-primary: var(--color-gray-900);
+      --color-text-secondary: var(--color-gray-600);
+      --color-text-muted: var(--color-gray-400);
+      --color-text-inverse: var(--color-white);
+      --color-text-error: var(--color-danger);
+
+      /* Surfaces */
+      --color-bg-page: var(--color-gray-50);
+      --color-bg-surface: var(--color-white);
+      --color-bg-surface-hover: var(--color-gray-50);
+      --color-bg-disabled: var(--color-gray-100);
+      --color-border: var(--color-gray-200);
+      --color-border-focus: var(--color-primary);
+      --color-border-error: var(--color-danger);
+
+      /* Typography */
+      --font-family-sans: {{FONT_FAMILY_SANS}};
+      --font-family-mono: {{FONT_FAMILY_MONO}};
+      --font-size-xs: 0.75rem;
+      --font-size-sm: 0.875rem;
+      --font-size-md: 1rem;
+      --font-size-lg: 1.125rem;
+      --font-size-xl: 1.25rem;
+      --font-size-2xl: 1.5rem;
+      --font-size-3xl: 1.875rem;
+      --font-size-4xl: 2.25rem;
+      --font-weight-normal: 400;
+      --font-weight-medium: 500;
+      --font-weight-semibold: 600;
+      --font-weight-bold: 700;
+      --line-height-tight: 1.25;
+      --line-height-normal: 1.5;
+      --line-height-relaxed: 1.75;
+
+      /* Spacing */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+      --space-3xl: 4rem;
+
+      /* Border Radius */
+      --radius-sm: 0.25rem;
+      --radius-md: 0.375rem;
+      --radius-lg: 0.5rem;
+      --radius-xl: 0.75rem;
+      --radius-2xl: 1rem;
+      --radius-full: 9999px;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+      /* Transitions */
+      --transition-fast: 150ms ease;
+      --transition-normal: 250ms ease;
+      --transition-slow: 350ms ease;
+
+      /* Focus ring */
+      --focus-ring: 0 0 0 3px rgba(59, 130, 246, 0.5);
+      --focus-ring-offset: 0 0 0 2px var(--color-white), 0 0 0 4px var(--color-primary);
+
+      /* Z-index scale */
+      --z-dropdown: 100;
+      --z-sticky: 200;
+      --z-overlay: 300;
+      --z-modal: 400;
+      --z-tooltip: 500;
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-text-primary: var(--color-gray-100);
+        --color-text-secondary: var(--color-gray-300);
+        --color-text-muted: var(--color-gray-500);
+        --color-bg-page: var(--color-gray-900);
+        --color-bg-surface: var(--color-gray-800);
+        --color-bg-surface-hover: var(--color-gray-700);
+        --color-bg-disabled: var(--color-gray-700);
+        --color-border: var(--color-gray-600);
+      }
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family-sans);
+      font-size: var(--font-size-md);
+      line-height: var(--line-height-normal);
+      color: var(--color-text-primary);
+      background-color: var(--color-bg-page);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: var(--space-md);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      border-radius: var(--radius-md);
+      z-index: var(--z-tooltip);
+      text-decoration: none;
+      font-weight: var(--font-weight-semibold);
+    }
+    .skip-link:focus {
+      top: var(--space-md);
+    }
+
+    /* Page wrapper */
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: var(--space-2xl) var(--space-lg);
+    }
+
+    /* Section spacing */
+    .component-section {
+      margin-bottom: var(--space-3xl);
+      padding-bottom: var(--space-3xl);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .component-section:last-child {
+      border-bottom: none;
+    }
+
+    .section-title {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-description {
+      font-size: var(--font-size-md);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-xl);
+    }
+
+    .subsection-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin-top: var(--space-xl);
+      margin-bottom: var(--space-md);
+    }
+
+    .component-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: center;
+      margin-bottom: var(--space-lg);
+    }
+
+    .component-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+
+    /* ============================================
+       BUTTONS
+       ============================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      font-family: var(--font-family-sans);
+      font-weight: var(--font-weight-medium);
+      text-decoration: none;
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+      min-height: 44px; /* WCAG touch target */
+      min-width: 44px;
+    }
+
+    .btn:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring-offset);
+    }
+
+    .btn:disabled, .btn[aria-disabled="true"] {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* Button sizes */
+    .btn-sm {
+      padding: var(--space-xs) var(--space-sm);
+      font-size: var(--font-size-sm);
+      min-height: 36px;
+    }
+    .btn-md {
+      padding: var(--space-sm) var(--space-md);
+      font-size: var(--font-size-md);
+    }
+    .btn-lg {
+      padding: var(--space-md) var(--space-xl);
+      font-size: var(--font-size-lg);
+    }
+
+    /* Primary */
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: var(--color-text-inverse);
+      border-color: var(--color-primary);
+    }
+    .btn-primary:hover {
+      background-color: var(--color-primary-hover);
+      border-color: var(--color-primary-hover);
+    }
+    .btn-primary:active {
+      background-color: var(--color-primary-active);
+      border-color: var(--color-primary-active);
+    }
+
+    /* Secondary */
+    .btn-secondary {
+      background-color: var(--color-secondary);
+      color: var(--color-text-inverse);
+      border-color: var(--color-secondary);
+    }
+    .btn-secondary:hover {
+      background-color: var(--color-secondary-hover);
+      border-color: var(--color-secondary-hover);
+    }
+    .btn-secondary:active {
+      background-color: var(--color-secondary-active);
+      border-color: var(--color-secondary-active);
+    }
+
+    /* Outline */
+    .btn-outline {
+      background-color: transparent;
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+    .btn-outline:hover {
+      background-color: var(--color-primary);
+      color: var(--color-text-inverse);
+    }
+    .btn-outline:active {
+      background-color: var(--color-primary-active);
+      color: var(--color-text-inverse);
+    }
+
+    /* Ghost */
+    .btn-ghost {
+      background-color: transparent;
+      color: var(--color-primary);
+      border-color: transparent;
+    }
+    .btn-ghost:hover {
+      background-color: var(--color-primary-light);
+    }
+    .btn-ghost:active {
+      background-color: var(--color-primary-light);
+      color: var(--color-primary-active);
+    }
+
+    /* Danger */
+    .btn-danger {
+      background-color: var(--color-danger);
+      color: var(--color-text-inverse);
+      border-color: var(--color-danger);
+    }
+    .btn-danger:hover {
+      background-color: var(--color-danger-hover);
+      border-color: var(--color-danger-hover);
+    }
+    .btn-danger:active {
+      background-color: var(--color-danger-active);
+      border-color: var(--color-danger-active);
+    }
+
+    /* Icon button */
+    .btn-icon {
+      padding: var(--space-sm);
+      border-radius: var(--radius-full);
+    }
+    .btn-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Loading state */
+    .btn-loading {
+      position: relative;
+      color: transparent !important;
+      pointer-events: none;
+    }
+    .btn-loading::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--color-white);
+      border-right-color: transparent;
+      border-radius: var(--radius-full);
+      animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ============================================
+       CARDS
+       ============================================ */
+    .card {
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+    }
+    .card:hover {
+      box-shadow: var(--shadow-lg);
+    }
+    .card-image {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+    }
+    .card-image-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background-color: var(--color-gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-muted);
+      font-size: var(--font-size-sm);
+    }
+    .card-header {
+      padding: var(--space-md) var(--space-lg);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .card-body {
+      padding: var(--space-lg);
+    }
+    .card-footer {
+      padding: var(--space-md) var(--space-lg);
+      border-top: 1px solid var(--color-border);
+      background-color: var(--color-gray-50);
+    }
+    .card-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-sm);
+    }
+    .card-text {
+      font-size: var(--font-size-md);
+      color: var(--color-text-secondary);
+      line-height: var(--line-height-relaxed);
+    }
+
+    /* Feature card */
+    .card-feature {
+      text-align: center;
+      padding: var(--space-xl);
+    }
+    .card-feature .card-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto var(--space-md);
+      background: var(--color-primary-light);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      font-size: var(--font-size-2xl);
+    }
+
+    /* Pricing card */
+    .card-pricing {
+      text-align: center;
+    }
+    .card-pricing .pricing-amount {
+      font-size: var(--font-size-4xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+    .card-pricing .pricing-period {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+    }
+    .card-pricing .pricing-features {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-lg) 0;
+      text-align: left;
+    }
+    .card-pricing .pricing-features li {
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--color-border);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+    .card-pricing .pricing-features li::before {
+      content: "\2713 ";
+      color: var(--color-success);
+      font-weight: var(--font-weight-bold);
+      margin-right: var(--space-sm);
+    }
+    .card-pricing-highlighted {
+      border-color: var(--color-primary);
+      border-width: 2px;
+      position: relative;
+    }
+    .card-pricing-highlighted::before {
+      content: "Most Popular";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Testimonial card */
+    .card-testimonial {
+      padding: var(--space-xl);
+    }
+    .card-testimonial blockquote {
+      font-size: var(--font-size-lg);
+      color: var(--color-text-secondary);
+      font-style: italic;
+      line-height: var(--line-height-relaxed);
+      margin-bottom: var(--space-lg);
+      position: relative;
+      padding-left: var(--space-lg);
+      border-left: 3px solid var(--color-primary);
+    }
+    .card-testimonial .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+    .card-testimonial .testimonial-author-name {
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-md);
+    }
+    .card-testimonial .testimonial-author-role {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+    }
+
+    /* ============================================
+       FORMS
+       ============================================ */
+    .form-group {
+      margin-bottom: var(--space-lg);
+    }
+    .form-label {
+      display: block;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-xs);
+    }
+    .form-label-required::after {
+      content: " (required)";
+      font-size: var(--font-size-xs);
+      color: var(--color-text-muted);
+      font-weight: var(--font-weight-normal);
+    }
+    .form-help {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+      margin-top: var(--space-xs);
+    }
+    .form-error-msg {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-error);
+      margin-top: var(--space-xs);
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .form-error-msg::before {
+      content: "\26A0";
+    }
+
+    /* Text input / Textarea / Select */
+    .form-input,
+    .form-textarea,
+    .form-select {
+      display: block;
+      width: 100%;
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-family-sans);
+      font-size: var(--font-size-md);
+      line-height: var(--line-height-normal);
+      color: var(--color-text-primary);
+      background-color: var(--color-bg-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+      min-height: 44px;
+    }
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: var(--color-border-focus);
+      box-shadow: var(--focus-ring);
+    }
+    .form-input-error,
+    .form-textarea-error,
+    .form-select-error {
+      border-color: var(--color-border-error);
+    }
+    .form-input-error:focus,
+    .form-textarea-error:focus,
+    .form-select-error:focus {
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3);
+    }
+    .form-input:disabled,
+    .form-textarea:disabled,
+    .form-select:disabled {
+      background-color: var(--color-bg-disabled);
+      color: var(--color-text-muted);
+      cursor: not-allowed;
+    }
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .form-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right var(--space-sm) center;
+      padding-right: var(--space-2xl);
+    }
+
+    /* Checkbox */
+    .form-checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+    }
+    .form-checkbox {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      flex-shrink: 0;
+    }
+    .form-checkbox:checked {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .form-checkbox:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring-offset);
+    }
+    .form-checkbox:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Radio */
+    .form-radio-group {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+    }
+    .form-radio {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      flex-shrink: 0;
+    }
+    .form-radio:checked {
+      border-color: var(--color-primary);
+      border-width: 6px;
+    }
+    .form-radio:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring-offset);
+    }
+    .form-radio:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Toggle switch */
+    .form-toggle-group {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+    }
+    .form-toggle {
+      appearance: none;
+      width: 48px;
+      height: 26px;
+      background: var(--color-gray-300);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      position: relative;
+      transition: background var(--transition-fast);
+      flex-shrink: 0;
+      border: none;
+    }
+    .form-toggle::after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 20px;
+      height: 20px;
+      background: var(--color-white);
+      border-radius: var(--radius-full);
+      transition: transform var(--transition-fast);
+      box-shadow: var(--shadow-sm);
+    }
+    .form-toggle:checked {
+      background: var(--color-primary);
+    }
+    .form-toggle:checked::after {
+      transform: translateX(22px);
+    }
+    .form-toggle:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring-offset);
+    }
+    .form-toggle:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Form layouts */
+    .form-row {
+      display: flex;
+      gap: var(--space-md);
+    }
+    .form-row .form-group {
+      flex: 1;
+    }
+    @media (max-width: 640px) {
+      .form-row {
+        flex-direction: column;
+      }
+    }
+
+    /* ============================================
+       NAVIGATION
+       ============================================ */
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-md) var(--space-lg);
+      background: var(--color-bg-surface);
+      border-bottom: 1px solid var(--color-border);
+      min-height: 64px;
+    }
+    .navbar-brand {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+    .navbar-nav {
+      display: flex;
+      list-style: none;
+      gap: var(--space-xs);
+    }
+    .navbar-link {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-sm) var(--space-md);
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+      font-weight: var(--font-weight-medium);
+      min-height: 44px;
+    }
+    .navbar-link:hover {
+      color: var(--color-primary);
+      background-color: var(--color-primary-light);
+    }
+    .navbar-link:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring-offset);
+    }
+    .navbar-link[aria-current="page"] {
+      color: var(--color-primary);
+      background-color: var(--color-primary-light);
+    }
+
+    /* Hamburger */
+    .navbar-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--space-sm);
+      min-height: 44px;
+      min-width: 44px;
+    }
+    .navbar-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--color-text-primary);
+      margin: 5px 0;
+      transition: all var(--transition-fast);
+    }
+    @media (max-width: 768px) {
+      .navbar-toggle { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+      .navbar-nav { display: none; }
+      .navbar-nav.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: var(--color-bg-surface);
+        border-bottom: 1px solid var(--color-border);
+        padding: var(--space-md);
+        box-shadow: var(--shadow-lg);
+        z-index: var(--z-dropdown);
+      }
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 260px;
+      background: var(--color-bg-surface);
+      border-right: 1px solid var(--color-border);
+      padding: var(--space-lg) 0;
+      min-height: 300px;
+    }
+    .sidebar-nav {
+      list-style: none;
+    }
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-lg);
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      min-height: 44px;
+      border-left: 3px solid transparent;
+    }
+    .sidebar-link:hover {
+      background-color: var(--color-bg-surface-hover);
+      color: var(--color-primary);
+    }
+    .sidebar-link:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring);
+    }
+    .sidebar-link[aria-current="page"] {
+      color: var(--color-primary);
+      background-color: var(--color-primary-light);
+      border-left-color: var(--color-primary);
+    }
+    .sidebar-section-title {
+      padding: var(--space-md) var(--space-lg) var(--space-xs);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumb {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      list-style: none;
+      gap: var(--space-xs);
+      font-size: var(--font-size-sm);
+    }
+    .breadcrumb-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .breadcrumb-item + .breadcrumb-item::before {
+      content: "/";
+      color: var(--color-text-muted);
+    }
+    .breadcrumb-link {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      padding: var(--space-xs);
+      border-radius: var(--radius-sm);
+    }
+    .breadcrumb-link:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+    .breadcrumb-link:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring-offset);
+    }
+    .breadcrumb-item[aria-current="page"] {
+      color: var(--color-text-primary);
+      font-weight: var(--font-weight-medium);
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      list-style: none;
+      gap: var(--space-xs);
+      align-items: center;
+    }
+    .pagination-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
+      padding: var(--space-sm);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      transition: all var(--transition-fast);
+    }
+    .pagination-link:hover {
+      background-color: var(--color-bg-surface-hover);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+    .pagination-link:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring-offset);
+    }
+    .pagination-link[aria-current="page"] {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-text-inverse);
+    }
+    .pagination-link:disabled, .pagination-link[aria-disabled="true"] {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      border-bottom: 2px solid var(--color-border);
+      gap: 0;
+    }
+    .tab-link {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-sm) var(--space-md);
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      font-weight: var(--font-weight-medium);
+      font-size: var(--font-size-sm);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all var(--transition-fast);
+      min-height: 44px;
+    }
+    .tab-link:hover {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-gray-300);
+    }
+    .tab-link:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring);
+    }
+    .tab-link[aria-selected="true"] {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+    }
+
+    /* Pills */
+    .pills {
+      display: flex;
+      gap: var(--space-xs);
+      flex-wrap: wrap;
+    }
+    .pill-link {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-sm) var(--space-md);
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      font-weight: var(--font-weight-medium);
+      font-size: var(--font-size-sm);
+      border-radius: var(--radius-full);
+      transition: all var(--transition-fast);
+      min-height: 44px;
+    }
+    .pill-link:hover {
+      background-color: var(--color-bg-surface-hover);
+      color: var(--color-primary);
+    }
+    .pill-link:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring-offset);
+    }
+    .pill-link[aria-selected="true"] {
+      background-color: var(--color-primary);
+      color: var(--color-text-inverse);
+    }
+
+    /* ============================================
+       TABLES
+       ============================================ */
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+    }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--font-size-sm);
+    }
+    .table th,
+    .table td {
+      padding: var(--space-sm) var(--space-md);
+      text-align: left;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .table th {
+      background-color: var(--color-gray-50);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      white-space: nowrap;
+    }
+
+    /* Sortable */
+    .table-sort-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      background: none;
+      border: none;
+      font: inherit;
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      cursor: pointer;
+      padding: var(--space-xs);
+      border-radius: var(--radius-sm);
+    }
+    .table-sort-btn:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring-offset);
+    }
+    .table-sort-btn::after {
+      content: "\2195";
+      font-size: var(--font-size-xs);
+      color: var(--color-text-muted);
+    }
+    .table-sort-btn[aria-sort="ascending"]::after {
+      content: "\2191";
+      color: var(--color-primary);
+    }
+    .table-sort-btn[aria-sort="descending"]::after {
+      content: "\2193";
+      color: var(--color-primary);
+    }
+
+    /* Striped */
+    .table-striped tbody tr:nth-child(even) {
+      background-color: var(--color-gray-50);
+    }
+
+    /* Hoverable */
+    .table-hover tbody tr:hover {
+      background-color: var(--color-bg-surface-hover);
+    }
+
+    /* Action column */
+    .table-actions {
+      display: flex;
+      gap: var(--space-xs);
+    }
+
+    /* ============================================
+       BADGES / TAGS
+       ============================================ */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-xs) var(--space-sm);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      border-radius: var(--radius-full);
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .badge-primary {
+      background-color: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+    .badge-success {
+      background-color: #dcfce7;
+      color: #15803d;
+    }
+    .badge-warning {
+      background-color: #fef3c7;
+      color: #92400e;
+    }
+    .badge-danger {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+    .badge-info {
+      background-color: #dbeafe;
+      color: #1e40af;
+    }
+    .badge-neutral {
+      background-color: var(--color-gray-100);
+      color: var(--color-gray-600);
+    }
+
+    /* ============================================
+       ALERTS
+       ============================================ */
+    .alert {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: var(--radius-lg);
+      border-left: 4px solid;
+      font-size: var(--font-size-sm);
+      margin-bottom: var(--space-md);
+    }
+    .alert-icon {
+      font-size: var(--font-size-xl);
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .alert-content {
+      flex: 1;
+    }
+    .alert-title {
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-xs);
+    }
+    .alert-info {
+      background-color: #eff6ff;
+      border-left-color: var(--color-info);
+      color: #1e40af;
+    }
+    .alert-success {
+      background-color: #f0fdf4;
+      border-left-color: var(--color-success);
+      color: #15803d;
+    }
+    .alert-warning {
+      background-color: #fffbeb;
+      border-left-color: var(--color-warning);
+      color: #92400e;
+    }
+    .alert-error {
+      background-color: #fef2f2;
+      border-left-color: var(--color-danger);
+      color: #991b1b;
+    }
+    .alert-dismiss {
+      background: none;
+      border: none;
+      font-size: var(--font-size-lg);
+      cursor: pointer;
+      padding: var(--space-xs);
+      line-height: 1;
+      opacity: 0.6;
+      transition: opacity var(--transition-fast);
+      min-height: 44px;
+      min-width: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+    }
+    .alert-dismiss:hover { opacity: 1; }
+    .alert-dismiss:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring-offset);
+    }
+
+    /* ============================================
+       MODAL
+       ============================================ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: var(--z-modal);
+      padding: var(--space-lg);
+      /* Hidden by default; display toggled via JS */
+    }
+    .modal {
+      background: var(--color-bg-surface);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-xl);
+      width: 100%;
+      max-width: 560px;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: modalIn 0.2s ease-out;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-lg);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .modal-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: var(--font-size-xl);
+      cursor: pointer;
+      padding: var(--space-sm);
+      border-radius: var(--radius-md);
+      color: var(--color-text-muted);
+      transition: color var(--transition-fast);
+      min-height: 44px;
+      min-width: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-close:hover { color: var(--color-text-primary); }
+    .modal-close:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring-offset);
+    }
+    .modal-body {
+      padding: var(--space-lg);
+    }
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: var(--space-sm);
+      padding: var(--space-md) var(--space-lg);
+      border-top: 1px solid var(--color-border);
+    }
+
+    /* ============================================
+       TOOLTIP
+       ============================================ */
+    .tooltip-wrapper {
+      position: relative;
+      display: inline-flex;
+    }
+    .tooltip {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-gray-900);
+      color: var(--color-white);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-xs);
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      z-index: var(--z-tooltip);
+    }
+    .tooltip::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: var(--color-gray-900);
+    }
+    .tooltip-wrapper:hover .tooltip,
+    .tooltip-wrapper:focus-within .tooltip {
+      opacity: 1;
+    }
+
+    /* ============================================
+       AVATAR
+       ============================================ */
+    .avatar {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-full);
+      font-weight: var(--font-weight-semibold);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .avatar-sm {
+      width: 32px;
+      height: 32px;
+      font-size: var(--font-size-xs);
+    }
+    .avatar-md {
+      width: 40px;
+      height: 40px;
+      font-size: var(--font-size-sm);
+    }
+    .avatar-lg {
+      width: 56px;
+      height: 56px;
+      font-size: var(--font-size-lg);
+    }
+    .avatar-initials {
+      background-color: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ============================================
+       PROGRESS BAR
+       ============================================ */
+    .progress {
+      width: 100%;
+      height: 8px;
+      background-color: var(--color-gray-200);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      background-color: var(--color-primary);
+      border-radius: var(--radius-full);
+      transition: width var(--transition-slow);
+    }
+    .progress-bar-success { background-color: var(--color-success); }
+    .progress-bar-warning { background-color: var(--color-warning); }
+    .progress-bar-danger { background-color: var(--color-danger); }
+    .progress-lg { height: 16px; }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-xs);
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="page" id="main-content" role="main">
+    <header style="margin-bottom: var(--space-3xl);">
+      <h1 style="font-size: var(--font-size-4xl); font-weight: var(--font-weight-bold);">{{BRAND_NAME}} UI Component Library</h1>
+      <p style="font-size: var(--font-size-lg); color: var(--color-text-secondary); margin-top: var(--space-sm);">
+        A comprehensive, accessible, token-driven component system.
+      </p>
+    </header>
+
+    <!-- ========================================
+         BUTTONS
+         ======================================== -->
+    <section class="component-section" aria-labelledby="section-buttons">
+      <h2 class="section-title" id="section-buttons">Buttons</h2>
+      <p class="section-description">Interactive controls for actions and navigation. All buttons meet 44px minimum touch target.</p>
+
+      <h3 class="subsection-title">Variants</h3>
+      <div class="component-row">
+        <button class="btn btn-md btn-primary">Primary</button>
+        <button class="btn btn-md btn-secondary">Secondary</button>
+        <button class="btn btn-md btn-outline">Outline</button>
+        <button class="btn btn-md btn-ghost">Ghost</button>
+        <button class="btn btn-md btn-danger">Danger</button>
+      </div>
+
+      <h3 class="subsection-title">Sizes</h3>
+      <div class="component-row">
+        <button class="btn btn-sm btn-primary">Small</button>
+        <button class="btn btn-md btn-primary">Medium</button>
+        <button class="btn btn-lg btn-primary">Large</button>
+      </div>
+
+      <h3 class="subsection-title">States</h3>
+      <div class="component-row">
+        <button class="btn btn-md btn-primary">Default</button>
+        <button class="btn btn-md btn-primary" disabled>Disabled</button>
+        <button class="btn btn-md btn-primary btn-loading" aria-label="Loading">Loading</button>
+      </div>
+
+      <h3 class="subsection-title">Icon Buttons</h3>
+      <div class="component-row">
+        <button class="btn btn-icon btn-primary" aria-label="Add item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <button class="btn btn-icon btn-outline" aria-label="Edit item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </button>
+        <button class="btn btn-icon btn-ghost" aria-label="Delete item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </button>
+        <button class="btn btn-md btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </button>
+      </div>
+    </section>
+
+    <!-- ========================================
+         CARDS
+         ======================================== -->
+    <section class="component-section" aria-labelledby="section-cards">
+      <h2 class="section-title" id="section-cards">Cards</h2>
+      <p class="section-description">Content containers for grouping related information.</p>
+
+      <h3 class="subsection-title">Basic Card</h3>
+      <div class="component-grid">
+        <article class="card">
+          <div class="card-image-placeholder" aria-hidden="true">Image Placeholder</div>
+          <div class="card-body">
+            <h3 class="card-title">Card Title</h3>
+            <p class="card-text">This is a basic card with an image placeholder, body content, and descriptive text that wraps to demonstrate line spacing.</p>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-sm btn-primary">Action</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h3 class="card-title" style="margin: 0;">Card with Header</h3>
+          </div>
+          <div class="card-body">
+            <p class="card-text">A card variant using a header section instead of an image. Suitable for data display and settings panels.</p>
+          </div>
+        </article>
+      </div>
+
+      <h3 class="subsection-title">Feature Cards</h3>
+      <div class="component-grid" style="grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));">
+        <article class="card card-feature">
+          <div class="card-icon" aria-hidden="true">&#9733;</div>
+          <h3 class="card-title">Feature One</h3>
+          <p class="card-text">Short description of this feature and its benefits to the user.</p>
+        </article>
+        <article class="card card-feature">
+          <div class="card-icon" aria-hidden="true">&#9889;</div>
+          <h3 class="card-title">Feature Two</h3>
+          <p class="card-text">Another feature highlight with concise, scannable text.</p>
+        </article>
+        <article class="card card-feature">
+          <div class="card-icon" aria-hidden="true">&#9881;</div>
+          <h3 class="card-title">Feature Three</h3>
+          <p class="card-text">A third feature card completing the visual pattern.</p>
+        </article>
+      </div>
+
+      <h3 class="subsection-title">Pricing Cards</h3>
+      <div class="component-grid" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));">
+        <article class="card card-pricing">
+          <div class="card-body">
+            <h3 class="card-title">Starter</h3>
+            <div class="pricing-amount">$9<span class="pricing-period">/mo</span></div>
+            <ul class="pricing-features">
+              <li>5 Projects</li>
+              <li>10 GB Storage</li>
+              <li>Email Support</li>
+            </ul>
+            <button class="btn btn-md btn-outline" style="width: 100%;">Choose Plan</button>
+          </div>
+        </article>
+        <article class="card card-pricing card-pricing-highlighted">
+          <div class="card-body" style="padding-top: var(--space-xl);">
+            <h3 class="card-title">Professional</h3>
+            <div class="pricing-amount">$29<span class="pricing-period">/mo</span></div>
+            <ul class="pricing-features">
+              <li>Unlimited Projects</li>
+              <li>100 GB Storage</li>
+              <li>Priority Support</li>
+              <li>Advanced Analytics</li>
+            </ul>
+            <button class="btn btn-md btn-primary" style="width: 100%;">Choose Plan</button>
+          </div>
+        </article>
+        <article class="card card-pricing">
+          <div class="card-body">
+            <h3 class="card-title">Enterprise</h3>
+            <div class="pricing-amount">$99<span class="pricing-period">/mo</span></div>
+            <ul class="pricing-features">
+              <li>Everything in Pro</li>
+              <li>Unlimited Storage</li>
+              <li>Dedicated Account Manager</li>
+              <li>Custom Integrations</li>
+            </ul>
+            <button class="btn btn-md btn-outline" style="width: 100%;">Contact Sales</button>
+          </div>
+        </article>
+      </div>
+
+      <h3 class="subsection-title">Testimonial Card</h3>
+      <div class="component-grid">
+        <article class="card card-testimonial">
+          <blockquote>"This product transformed how our team collaborates. The design system saved us weeks of development time."</blockquote>
+          <div class="testimonial-author">
+            <div class="avatar avatar-md avatar-initials" aria-hidden="true">JD</div>
+            <div>
+              <div class="testimonial-author-name">Jane Doe</div>
+              <div class="testimonial-author-role">VP of Engineering, Acme Corp</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================
+         FORMS
+         ======================================== -->
+    <section class="component-section" aria-labelledby="section-forms">
+      <h2 class="section-title" id="section-forms">Forms</h2>
+      <p class="section-description">Input elements for data collection with validation states.</p>
+
+      <form novalidate style="max-width: 640px;">
+        <h3 class="subsection-title">Text Inputs</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="input-first" class="form-label form-label-required">First Name</label>
+            <input type="text" id="input-first" class="form-input" placeholder="Enter first name" autocomplete="given-name">
+          </div>
+          <div class="form-group">
+            <label for="input-last" class="form-label form-label-required">Last Name</label>
+            <input type="text" id="input-last" class="form-input" placeholder="Enter last name" autocomplete="family-name">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="input-email" class="form-label form-label-required">Email</label>
+          <input type="email" id="input-email" class="form-input" placeholder="you@example.com" autocomplete="email">
+          <p class="form-help">We'll never share your email with anyone else.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="input-error" class="form-label">Error State Example</label>
+          <input type="text" id="input-error" class="form-input form-input-error" value="bad-value" aria-invalid="true" aria-describedby="input-error-msg">
+          <p class="form-error-msg" id="input-error-msg" role="alert">Please enter a valid value. Must be at least 3 characters.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="input-disabled" class="form-label">Disabled Input</label>
+          <input type="text" id="input-disabled" class="form-input" value="Cannot edit" disabled>
+        </div>
+
+        <h3 class="subsection-title">Textarea</h3>
+        <div class="form-group">
+          <label for="textarea-default" class="form-label">Message</label>
+          <textarea id="textarea-default" class="form-textarea" placeholder="Write your message here..."></textarea>
+        </div>
+
+        <h3 class="subsection-title">Select</h3>
+        <div class="form-group">
+          <label for="select-default" class="form-label">Category</label>
+          <select id="select-default" class="form-select">
+            <option value="">Choose a category...</option>
+            <option value="design">Design</option>
+            <option value="development">Development</option>
+            <option value="marketing">Marketing</option>
+          </select>
+        </div>
+
+        <h3 class="subsection-title">Checkbox</h3>
+        <div class="form-group">
+          <div class="form-checkbox-group">
+            <input type="checkbox" id="check-1" class="form-checkbox">
+            <label for="check-1">I agree to the terms and conditions</label>
+          </div>
+          <div class="form-checkbox-group">
+            <input type="checkbox" id="check-2" class="form-checkbox" checked>
+            <label for="check-2">Send me newsletter updates</label>
+          </div>
+          <div class="form-checkbox-group">
+            <input type="checkbox" id="check-3" class="form-checkbox" disabled>
+            <label for="check-3">Disabled option</label>
+          </div>
+        </div>
+
+        <h3 class="subsection-title">Radio</h3>
+        <fieldset style="border: none;">
+          <legend class="form-label" style="margin-bottom: var(--space-sm);">Preferred contact method</legend>
+          <div class="form-radio-group">
+            <input type="radio" id="radio-email" name="contact" class="form-radio" checked>
+            <label for="radio-email">Email</label>
+          </div>
+          <div class="form-radio-group">
+            <input type="radio" id="radio-phone" name="contact" class="form-radio">
+            <label for="radio-phone">Phone</label>
+          </div>
+          <div class="form-radio-group">
+            <input type="radio" id="radio-mail" name="contact" class="form-radio" disabled>
+            <label for="radio-mail">Postal mail (unavailable)</label>
+          </div>
+        </fieldset>
+
+        <h3 class="subsection-title">Toggle Switch</h3>
+        <div class="form-group">
+          <div class="form-toggle-group">
+            <input type="checkbox" id="toggle-1" class="form-toggle" role="switch" aria-checked="false">
+            <label for="toggle-1">Enable notifications</label>
+          </div>
+          <div class="form-toggle-group">
+            <input type="checkbox" id="toggle-2" class="form-toggle" role="switch" aria-checked="true" checked>
+            <label for="toggle-2">Dark mode</label>
+          </div>
+          <div class="form-toggle-group">
+            <input type="checkbox" id="toggle-3" class="form-toggle" role="switch" disabled>
+            <label for="toggle-3">Disabled toggle</label>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+    <section class="component-section" aria-labelledby="section-nav">
+      <h2 class="section-title" id="section-nav">Navigation</h2>
+      <p class="section-description">Patterns for wayfinding and content organization.</p>
+
+      <h3 class="subsection-title">Navbar</h3>
+      <nav class="navbar" aria-label="Example navigation" style="border-radius: var(--radius-lg); border: 1px solid var(--color-border);">
+        <a href="#" class="navbar-brand">{{BRAND_NAME}}</a>
+        <button class="navbar-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="navbar-nav" role="menubar">
+          <li role="none"><a href="#" class="navbar-link" role="menuitem" aria-current="page">Home</a></li>
+          <li role="none"><a href="#" class="navbar-link" role="menuitem">Products</a></li>
+          <li role="none"><a href="#" class="navbar-link" role="menuitem">About</a></li>
+          <li role="none"><a href="#" class="navbar-link" role="menuitem">Contact</a></li>
+        </ul>
+      </nav>
+
+      <h3 class="subsection-title">Sidebar</h3>
+      <nav class="sidebar" aria-label="Sidebar navigation" style="border-radius: var(--radius-lg); border: 1px solid var(--color-border);">
+        <div class="sidebar-section-title">Main</div>
+        <ul class="sidebar-nav">
+          <li><a href="#" class="sidebar-link" aria-current="page">Dashboard</a></li>
+          <li><a href="#" class="sidebar-link">Analytics</a></li>
+          <li><a href="#" class="sidebar-link">Projects</a></li>
+        </ul>
+        <div class="sidebar-section-title">Settings</div>
+        <ul class="sidebar-nav">
+          <li><a href="#" class="sidebar-link">Profile</a></li>
+          <li><a href="#" class="sidebar-link">Team</a></li>
+          <li><a href="#" class="sidebar-link">Billing</a></li>
+        </ul>
+      </nav>
+
+      <h3 class="subsection-title">Breadcrumbs</h3>
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Home</a></li>
+          <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Products</a></li>
+          <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Category</a></li>
+          <li class="breadcrumb-item" aria-current="page">Current Page</li>
+        </ol>
+      </nav>
+
+      <h3 class="subsection-title">Pagination</h3>
+      <nav aria-label="Pagination">
+        <ul class="pagination">
+          <li><a href="#" class="pagination-link" aria-label="Previous page" aria-disabled="true">&laquo;</a></li>
+          <li><a href="#" class="pagination-link" aria-current="page">1</a></li>
+          <li><a href="#" class="pagination-link">2</a></li>
+          <li><a href="#" class="pagination-link">3</a></li>
+          <li><span class="pagination-link" style="border: none;">&hellip;</span></li>
+          <li><a href="#" class="pagination-link">12</a></li>
+          <li><a href="#" class="pagination-link" aria-label="Next page">&raquo;</a></li>
+        </ul>
+      </nav>
+
+      <h3 class="subsection-title">Tabs</h3>
+      <div role="tablist" class="tabs" aria-label="Example tabs">
+        <a href="#" class="tab-link" role="tab" aria-selected="true">Overview</a>
+        <a href="#" class="tab-link" role="tab" aria-selected="false">Features</a>
+        <a href="#" class="tab-link" role="tab" aria-selected="false">Pricing</a>
+        <a href="#" class="tab-link" role="tab" aria-selected="false">Reviews</a>
+      </div>
+
+      <h3 class="subsection-title">Pills</h3>
+      <div class="pills" role="tablist" aria-label="Filter categories">
+        <a href="#" class="pill-link" role="tab" aria-selected="true">All</a>
+        <a href="#" class="pill-link" role="tab" aria-selected="false">Design</a>
+        <a href="#" class="pill-link" role="tab" aria-selected="false">Development</a>
+        <a href="#" class="pill-link" role="tab" aria-selected="false">Marketing</a>
+      </div>
+    </section>
+
+    <!-- ========================================
+         TABLES
+         ======================================== -->
+    <section class="component-section" aria-labelledby="section-tables">
+      <h2 class="section-title" id="section-tables">Tables</h2>
+      <p class="section-description">Structured data display with sorting and responsive behavior.</p>
+
+      <h3 class="subsection-title">Striped &amp; Hoverable Table</h3>
+      <div class="table-wrapper">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col"><button class="table-sort-btn" aria-sort="ascending">Name</button></th>
+              <th scope="col"><button class="table-sort-btn">Email</button></th>
+              <th scope="col"><button class="table-sort-btn">Role</button></th>
+              <th scope="col">Status</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Alice Johnson</td>
+              <td>alice@example.com</td>
+              <td>Admin</td>
+              <td><span class="badge badge-success">Active</span></td>
+              <td>
+                <div class="table-actions">
+                  <button class="btn btn-sm btn-ghost" aria-label="Edit Alice Johnson">Edit</button>
+                  <button class="btn btn-sm btn-ghost" style="color: var(--color-danger);" aria-label="Delete Alice Johnson">Delete</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Bob Smith</td>
+              <td>bob@example.com</td>
+              <td>Editor</td>
+              <td><span class="badge badge-warning">Pending</span></td>
+              <td>
+                <div class="table-actions">
+                  <button class="btn btn-sm btn-ghost" aria-label="Edit Bob Smith">Edit</button>
+                  <button class="btn btn-sm btn-ghost" style="color: var(--color-danger);" aria-label="Delete Bob Smith">Delete</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Carol Davis</td>
+              <td>carol@example.com</td>
+              <td>Viewer</td>
+              <td><span class="badge badge-danger">Inactive</span></td>
+              <td>
+                <div class="table-actions">
+                  <button class="btn btn-sm btn-ghost" aria-label="Edit Carol Davis">Edit</button>
+                  <button class="btn btn-sm btn-ghost" style="color: var(--color-danger);" aria-label="Delete Carol Davis">Delete</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>David Lee</td>
+              <td>david@example.com</td>
+              <td>Editor</td>
+              <td><span class="badge badge-success">Active</span></td>
+              <td>
+                <div class="table-actions">
+                  <button class="btn btn-sm btn-ghost" aria-label="Edit David Lee">Edit</button>
+                  <button class="btn btn-sm btn-ghost" style="color: var(--color-danger);" aria-label="Delete David Lee">Delete</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ========================================
+         BADGES / TAGS
+         ======================================== -->
+    <section class="component-section" aria-labelledby="section-badges">
+      <h2 class="section-title" id="section-badges">Badges &amp; Tags</h2>
+      <p class="section-description">Status indicators and category labels.</p>
+
+      <div class="component-row">
+        <span class="badge badge-primary">Primary</span>
+        <span class="badge badge-success">Success</span>
+        <span class="badge badge-warning">Warning</span>
+        <span class="badge badge-danger">Error</span>
+        <span class="badge badge-info">Info</span>
+        <span class="badge badge-neutral">Neutral</span>
+      </div>
+    </section>
+
+    <!-- ========================================
+         ALERTS
+         ======================================== -->
+    <section class="component-section" aria-labelledby="section-alerts">
+      <h2 class="section-title" id="section-alerts">Alerts</h2>
+      <p class="section-description">Contextual feedback messages for user actions.</p>
+
+      <div role="alert" class="alert alert-info">
+        <span class="alert-icon" aria-hidden="true">&#8505;</span>
+        <div class="alert-content">
+          <div class="alert-title">Information</div>
+          <p>A new software update is available. See what's new in version 2.0.</p>
+        </div>
+        <button class="alert-dismiss" aria-label="Dismiss alert">&times;</button>
+      </div>
+
+      <div role="alert" class="alert alert-success">
+        <span class="alert-icon" aria-hidden="true">&#10003;</span>
+        <div class="alert-content">
+          <div class="alert-title">Success</div>
+          <p>Your changes have been saved successfully.</p>
+        </div>
+        <button class="alert-dismiss" aria-label="Dismiss alert">&times;</button>
+      </div>
+
+      <div role="alert" class="alert alert-warning">
+        <span class="alert-icon" aria-hidden="true">&#9888;</span>
+        <div class="alert-content">
+          <div class="alert-title">Warning</div>
+          <p>Your account subscription expires in 3 days. Please renew to avoid interruption.</p>
+        </div>
+        <button class="alert-dismiss" aria-label="Dismiss alert">&times;</button>
+      </div>
+
+      <div role="alert" class="alert alert-error">
+        <span class="alert-icon" aria-hidden="true">&#10007;</span>
+        <div class="alert-content">
+          <div class="alert-title">Error</div>
+          <p>Unable to process your request. Please check your input and try again.</p>
+        </div>
+        <button class="alert-dismiss" aria-label="Dismiss alert">&times;</button>
+      </div>
+    </section>
+
+    <!-- ========================================
+         MODAL
+         ======================================== -->
+    <section class="component-section" aria-labelledby="section-modal">
+      <h2 class="section-title" id="section-modal">Modal Dialog</h2>
+      <p class="section-description">Overlay dialog for focused interactions. Requires JavaScript for focus trapping.</p>
+
+      <!-- Static modal preview (not overlaid) -->
+      <div style="border: 1px solid var(--color-border); border-radius: var(--radius-xl); max-width: 560px;">
+        <div class="modal-header">
+          <h3 class="modal-title" id="modal-title-demo">Confirm Action</h3>
+          <button class="modal-close" aria-label="Close dialog">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p style="color: var(--color-text-secondary);">Are you sure you want to delete this item? This action cannot be undone.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-md btn-ghost">Cancel</button>
+          <button class="btn btn-md btn-danger">Delete</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================
+         TOOLTIP
+         ======================================== -->
+    <section class="component-section" aria-labelledby="section-tooltips">
+      <h2 class="section-title" id="section-tooltips">Tooltips</h2>
+      <p class="section-description">Contextual hints that appear on hover or focus.</p>
+
+      <div class="component-row">
+        <span class="tooltip-wrapper">
+          <button class="btn btn-md btn-outline" aria-describedby="tip-1">Hover me</button>
+          <span class="tooltip" id="tip-1" role="tooltip">This is a helpful tooltip</span>
+        </span>
+        <span class="tooltip-wrapper">
+          <button class="btn btn-icon btn-ghost" aria-label="More info" aria-describedby="tip-2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </button>
+          <span class="tooltip" id="tip-2" role="tooltip">Additional information</span>
+        </span>
+      </div>
+    </section>
+
+    <!-- ========================================
+         AVATARS
+         ======================================== -->
+    <section class="component-section" aria-labelledby="section-avatars">
+      <h2 class="section-title" id="section-avatars">Avatars</h2>
+      <p class="section-description">User profile representations in multiple sizes.</p>
+
+      <h3 class="subsection-title">Initials</h3>
+      <div class="component-row">
+        <div class="avatar avatar-sm avatar-initials" aria-label="Alice Brown">AB</div>
+        <div class="avatar avatar-md avatar-initials" aria-label="Carol Davis">CD</div>
+        <div class="avatar avatar-lg avatar-initials" aria-label="Emily Ford">EF</div>
+      </div>
+
+      <h3 class="subsection-title">With Image</h3>
+      <div class="component-row">
+        <div class="avatar avatar-sm"><img src="{{AVATAR_URL}}" alt="User avatar"></div>
+        <div class="avatar avatar-md"><img src="{{AVATAR_URL}}" alt="User avatar"></div>
+        <div class="avatar avatar-lg"><img src="{{AVATAR_URL}}" alt="User avatar"></div>
+      </div>
+    </section>
+
+    <!-- ========================================
+         PROGRESS BAR
+         ======================================== -->
+    <section class="component-section" aria-labelledby="section-progress">
+      <h2 class="section-title" id="section-progress">Progress Bar</h2>
+      <p class="section-description">Visual indicators for task completion and loading states.</p>
+
+      <div style="max-width: 480px;">
+        <div class="progress-label">
+          <span>Uploading...</span>
+          <span>45%</span>
+        </div>
+        <div class="progress" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" aria-label="Upload progress">
+          <div class="progress-bar" style="width: 45%;"></div>
+        </div>
+
+        <div style="margin-top: var(--space-lg);">
+          <div class="progress-label"><span>Success</span><span>100%</span></div>
+          <div class="progress" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Complete">
+            <div class="progress-bar progress-bar-success" style="width: 100%;"></div>
+          </div>
+        </div>
+
+        <div style="margin-top: var(--space-lg);">
+          <div class="progress-label"><span>Storage</span><span>78%</span></div>
+          <div class="progress" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" aria-label="Storage usage">
+            <div class="progress-bar progress-bar-warning" style="width: 78%;"></div>
+          </div>
+        </div>
+
+        <div style="margin-top: var(--space-lg);">
+          <div class="progress-label"><span>Critical</span><span>95%</span></div>
+          <div class="progress progress-lg" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" aria-label="Critical usage">
+            <div class="progress-bar progress-bar-danger" style="width: 95%;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

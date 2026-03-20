@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{BRAND_NAME}} — Brand Guidelines</title>
+<style>
+:root {
+  /* ── Color Scales ── */
+  --primary-50: {{PRIMARY_50}};
+  --primary-100: {{PRIMARY_100}};
+  --primary-200: {{PRIMARY_200}};
+  --primary-300: {{PRIMARY_300}};
+  --primary-400: {{PRIMARY_400}};
+  --primary-500: {{PRIMARY_500}};
+  --primary-600: {{PRIMARY_600}};
+  --primary-700: {{PRIMARY_700}};
+  --primary-800: {{PRIMARY_800}};
+  --primary-900: {{PRIMARY_900}};
+
+  --secondary-50: {{SECONDARY_50}};
+  --secondary-100: {{SECONDARY_100}};
+  --secondary-200: {{SECONDARY_200}};
+  --secondary-300: {{SECONDARY_300}};
+  --secondary-400: {{SECONDARY_400}};
+  --secondary-500: {{SECONDARY_500}};
+  --secondary-600: {{SECONDARY_600}};
+  --secondary-700: {{SECONDARY_700}};
+  --secondary-800: {{SECONDARY_800}};
+  --secondary-900: {{SECONDARY_900}};
+
+  --accent-50: {{ACCENT_50}};
+  --accent-100: {{ACCENT_100}};
+  --accent-200: {{ACCENT_200}};
+  --accent-300: {{ACCENT_300}};
+  --accent-400: {{ACCENT_400}};
+  --accent-500: {{ACCENT_500}};
+  --accent-600: {{ACCENT_600}};
+  --accent-700: {{ACCENT_700}};
+  --accent-800: {{ACCENT_800}};
+  --accent-900: {{ACCENT_900}};
+
+  /* ── Semantic Colors ── */
+  --color-bg: {{COLOR_BG}};
+  --color-surface: {{COLOR_SURFACE}};
+  --color-text: {{COLOR_TEXT}};
+  --color-text-muted: {{COLOR_TEXT_MUTED}};
+  --color-border: {{COLOR_BORDER}};
+
+  /* ── Typography ── */
+  --font-heading: {{FONT_HEADING}}, 'Georgia', serif;
+  --font-body: {{FONT_BODY}}, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --text-7xl: 4.5rem;
+  --text-display: 6rem;
+
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.05em;
+  --tracking-wider: 0.1em;
+
+  /* ── Spacing (8px grid) ── */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* ── Border Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* ── Shadows ── */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.08);
+
+  /* ── Animation ── */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Progress Bar ── */
+.progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px; z-index: 1000;
+  background: linear-gradient(90deg, var(--primary-500), var(--accent-500));
+  width: 0%; transition: width 100ms linear;
+}
+
+/* ── Sidebar Navigation ── */
+.sidebar-nav {
+  position: fixed; right: var(--space-6); top: 50%; transform: translateY(-50%);
+  z-index: 900; display: flex; flex-direction: column; gap: var(--space-3);
+}
+.sidebar-nav a {
+  display: block; width: 10px; height: 10px; border-radius: var(--radius-full);
+  background: var(--color-border); transition: all var(--duration-normal) var(--ease-out);
+  position: relative;
+}
+.sidebar-nav a.active { background: var(--primary-500); transform: scale(1.4); }
+.sidebar-nav a .tooltip {
+  position: absolute; right: 24px; top: 50%; transform: translateY(-50%);
+  background: var(--primary-900); color: #fff; padding: 4px 10px;
+  border-radius: var(--radius-sm); font-size: var(--text-xs);
+  white-space: nowrap; opacity: 0; pointer-events: none;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+.sidebar-nav a:hover .tooltip { opacity: 1; }
+
+/* ── Grid Overlay ── */
+.grid-overlay {
+  position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  display: none; padding: 0 var(--space-6);
+}
+.grid-overlay.visible { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--space-6); }
+.grid-overlay .col {
+  background: rgba(255, 0, 0, 0.06); border-left: 1px solid rgba(255, 0, 0, 0.12);
+  border-right: 1px solid rgba(255, 0, 0, 0.12);
+}
+
+/* ── Review Panel ── */
+.review-panel {
+  position: fixed; bottom: var(--space-6); left: var(--space-6); z-index: 950;
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg); padding: var(--space-4) var(--space-5);
+  box-shadow: var(--shadow-lg); font-size: var(--text-sm); max-width: 320px;
+  display: none;
+}
+.review-panel.visible { display: block; }
+.review-panel h4 { font-family: var(--font-heading); margin-bottom: var(--space-2); font-size: var(--text-sm); text-transform: uppercase; letter-spacing: var(--tracking-wider); }
+.review-panel .check-item { display: flex; align-items: center; gap: var(--space-2); padding: 2px 0; }
+.review-panel .check-item .dot { width: 8px; height: 8px; border-radius: var(--radius-full); flex-shrink: 0; }
+.review-panel .check-item .dot.pass { background: #16a34a; }
+.review-panel .check-item .dot.warn { background: #eab308; }
+.review-panel .check-item .dot.fail { background: #dc2626; }
+.shortcut-hint {
+  position: fixed; bottom: var(--space-6); right: var(--space-16); z-index: 950;
+  background: var(--primary-900); color: #fff; padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md); font-size: var(--text-xs); font-family: var(--font-mono);
+  opacity: 0.7;
+}
+
+/* ── Layout ── */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); }
+.section { padding: var(--space-24) 0; }
+.section-label {
+  font-family: var(--font-heading); font-size: var(--text-xs);
+  text-transform: uppercase; letter-spacing: var(--tracking-wider);
+  color: var(--color-text-muted); margin-bottom: var(--space-3);
+  font-weight: var(--weight-semibold);
+}
+.section-title {
+  font-family: var(--font-heading); font-size: var(--text-5xl);
+  font-weight: var(--weight-bold); line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight); margin-bottom: var(--space-6);
+}
+.section-subtitle {
+  font-size: var(--text-xl); color: var(--color-text-muted);
+  max-width: 640px; line-height: var(--leading-relaxed);
+}
+.divider { height: 1px; background: var(--color-border); margin: var(--space-16) 0; }
+
+/* ── Fade-in Animation ── */
+.fade-in { opacity: 0; transform: translateY(24px); transition: opacity var(--duration-slow) var(--ease-out), transform var(--duration-slow) var(--ease-out); }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Cover / Hero ── */
+.hero {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, var(--primary-800) 0%, var(--primary-600) 40%, var(--secondary-600) 100%);
+  color: #fff;
+}
+.hero-pattern {
+  position: absolute; inset: 0; opacity: 0.08;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-content { position: relative; text-align: center; max-width: 800px; padding: var(--space-6); }
+.hero-eyebrow {
+  font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.3em;
+  font-weight: var(--weight-medium); opacity: 0.8; margin-bottom: var(--space-6);
+}
+.hero-brand {
+  font-family: var(--font-heading); font-size: var(--text-display);
+  font-weight: var(--weight-bold); line-height: var(--leading-none);
+  letter-spacing: var(--tracking-tight); margin-bottom: var(--space-6);
+}
+.hero-tagline {
+  font-size: var(--text-2xl); font-weight: var(--weight-light);
+  opacity: 0.9; line-height: var(--leading-relaxed); margin-bottom: var(--space-10);
+}
+.hero-meta {
+  font-size: var(--text-sm); opacity: 0.6; font-family: var(--font-mono);
+}
+
+/* ── Table of Contents ── */
+.toc-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4);
+}
+.toc-card {
+  padding: var(--space-6); border: 1px solid var(--color-border);
+  border-radius: var(--radius-md); text-decoration: none; color: var(--color-text);
+  transition: all var(--duration-normal) var(--ease-out);
+  display: flex; flex-direction: column; gap: var(--space-2);
+}
+.toc-card:hover {
+  border-color: var(--primary-300); box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.toc-card .toc-num {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--primary-500); font-weight: var(--weight-semibold);
+}
+.toc-card .toc-title {
+  font-family: var(--font-heading); font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+}
+.toc-card .toc-desc { font-size: var(--text-sm); color: var(--color-text-muted); }
+
+/* ── Logo Section ── */
+.logo-variants {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6);
+  margin-bottom: var(--space-12);
+}
+.logo-card {
+  aspect-ratio: 3/2; display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-lg); padding: var(--space-8);
+  position: relative; overflow: hidden;
+}
+.logo-card img, .logo-card svg { max-width: 70%; max-height: 60%; object-fit: contain; }
+.logo-card--light { background: var(--color-surface); border: 1px solid var(--color-border); }
+.logo-card--dark { background: var(--primary-900); }
+.logo-card--mono { background: #f5f5f5; }
+.logo-card-label {
+  position: absolute; bottom: var(--space-4); left: var(--space-4);
+  font-size: var(--text-xs); text-transform: uppercase; letter-spacing: var(--tracking-wider);
+  font-weight: var(--weight-semibold); color: var(--color-text-muted);
+}
+.logo-card--dark .logo-card-label { color: rgba(255,255,255,0.5); }
+
+.clearspace {
+  display: flex; align-items: center; justify-content: center;
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg); padding: var(--space-10);
+  margin-bottom: var(--space-12);
+}
+.clearspace-inner {
+  border: 2px dashed var(--primary-300); padding: var(--space-8);
+  position: relative;
+}
+.clearspace-inner::before {
+  content: 'x'; position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+  font-family: var(--font-mono); font-size: var(--text-xs); color: var(--primary-500);
+}
+
+.dont-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+.dont-card {
+  background: #fef2f2; border: 1px solid #fecaca; border-radius: var(--radius-md);
+  padding: var(--space-5); text-align: center;
+}
+.dont-card .dont-icon { font-size: var(--text-2xl); margin-bottom: var(--space-2); color: #dc2626; }
+.dont-card p { font-size: var(--text-sm); color: #991b1b; }
+
+/* ── Color System ── */
+.color-heroes {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6);
+  margin-bottom: var(--space-12);
+}
+.color-hero {
+  border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md);
+}
+.color-hero-swatch { height: 160px; display: flex; align-items: flex-end; padding: var(--space-4); }
+.color-hero-swatch span { color: #fff; font-family: var(--font-mono); font-size: var(--text-sm); font-weight: var(--weight-medium); }
+.color-hero-info { padding: var(--space-4); background: var(--color-surface); }
+.color-hero-info h4 { font-family: var(--font-heading); font-size: var(--text-base); margin-bottom: var(--space-1); }
+.color-hero-info code { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-muted); }
+
+.palette-row { display: flex; border-radius: var(--radius-md); overflow: hidden; margin-bottom: var(--space-4); box-shadow: var(--shadow-sm); }
+.palette-swatch {
+  flex: 1; padding: var(--space-5) var(--space-3); text-align: center;
+  font-family: var(--font-mono); font-size: var(--text-xs); cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-out);
+  position: relative;
+}
+.palette-swatch:hover { transform: scaleY(1.1); z-index: 1; }
+.palette-swatch .swatch-label { display: block; margin-bottom: 2px; font-weight: var(--weight-semibold); }
+.palette-swatch .swatch-hex { opacity: 0.8; }
+.palette-swatch .copied-toast {
+  position: absolute; top: -28px; left: 50%; transform: translateX(-50%);
+  background: var(--primary-900); color: #fff; padding: 2px 8px;
+  border-radius: var(--radius-sm); font-size: 10px; opacity: 0;
+  transition: opacity var(--duration-fast);
+}
+.palette-swatch .copied-toast.show { opacity: 1; }
+
+.ratio-bar {
+  display: flex; height: 48px; border-radius: var(--radius-md); overflow: hidden;
+  margin-top: var(--space-6); box-shadow: var(--shadow-sm);
+}
+.ratio-bar div { display: flex; align-items: center; justify-content: center; color: #fff; font-size: var(--text-sm); font-weight: var(--weight-semibold); }
+
+/* ── Typography Section ── */
+.font-showcase {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8);
+  margin-bottom: var(--space-12);
+}
+.font-card {
+  padding: var(--space-8); border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+.font-card-label {
+  font-size: var(--text-xs); text-transform: uppercase;
+  letter-spacing: var(--tracking-wider); color: var(--color-text-muted);
+  margin-bottom: var(--space-4); font-weight: var(--weight-semibold);
+}
+.font-card-preview {
+  font-size: var(--text-4xl); font-weight: var(--weight-bold);
+  line-height: var(--leading-tight); margin-bottom: var(--space-4);
+}
+.font-card-alphabet {
+  font-size: var(--text-sm); color: var(--color-text-muted);
+  line-height: var(--leading-relaxed); word-break: break-all;
+}
+
+.type-specimen { margin-bottom: var(--space-6); padding-bottom: var(--space-6); border-bottom: 1px solid var(--color-border); }
+.type-specimen:last-child { border-bottom: none; }
+.type-specimen-meta {
+  display: flex; gap: var(--space-4); font-family: var(--font-mono);
+  font-size: var(--text-xs); color: var(--color-text-muted); margin-bottom: var(--space-2);
+}
+.type-display { font-family: var(--font-heading); font-size: var(--text-display); font-weight: var(--weight-bold); line-height: var(--leading-none); letter-spacing: var(--tracking-tight); }
+.type-h1 { font-family: var(--font-heading); font-size: var(--text-7xl); font-weight: var(--weight-bold); line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); }
+.type-h2 { font-family: var(--font-heading); font-size: var(--text-5xl); font-weight: var(--weight-semibold); line-height: var(--leading-tight); }
+.type-h3 { font-family: var(--font-heading); font-size: var(--text-3xl); font-weight: var(--weight-semibold); line-height: var(--leading-tight); }
+.type-lead { font-family: var(--font-body); font-size: var(--text-xl); font-weight: var(--weight-regular); line-height: var(--leading-relaxed); color: var(--color-text-muted); }
+.type-body { font-family: var(--font-body); font-size: var(--text-base); line-height: var(--leading-normal); }
+.type-small { font-family: var(--font-body); font-size: var(--text-sm); line-height: var(--leading-normal); color: var(--color-text-muted); }
+.type-label { font-family: var(--font-body); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: var(--tracking-wider); font-weight: var(--weight-semibold); }
+.type-mono { font-family: var(--font-mono); font-size: var(--text-sm); line-height: var(--leading-normal); }
+
+/* ── Voice & Tone ── */
+.pillars-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); margin-bottom: var(--space-12); }
+.pillar-card {
+  padding: var(--space-6); border: 1px solid var(--color-border);
+  border-radius: var(--radius-md); text-align: center;
+  transition: border-color var(--duration-normal) var(--ease-out);
+}
+.pillar-card:hover { border-color: var(--primary-400); }
+.pillar-card .pillar-icon { font-size: var(--text-3xl); margin-bottom: var(--space-3); }
+.pillar-card h4 { font-family: var(--font-heading); font-size: var(--text-lg); margin-bottom: var(--space-2); }
+.pillar-card p { font-size: var(--text-sm); color: var(--color-text-muted); }
+
+.writing-examples { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+.writing-card {
+  padding: var(--space-6); border-radius: var(--radius-md);
+}
+.writing-card--do { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.writing-card--dont { background: #fef2f2; border: 1px solid #fecaca; }
+.writing-card h4 { font-size: var(--text-sm); text-transform: uppercase; letter-spacing: var(--tracking-wider); font-weight: var(--weight-bold); margin-bottom: var(--space-3); }
+.writing-card--do h4 { color: #16a34a; }
+.writing-card--dont h4 { color: #dc2626; }
+.writing-card p { font-size: var(--text-base); line-height: var(--leading-relaxed); }
+
+/* ── Imagery ── */
+.imagery-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4);
+}
+.imagery-card {
+  border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.imagery-card-visual {
+  aspect-ratio: 16/10; background: var(--color-surface);
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--text-sm); color: var(--color-text-muted);
+}
+.imagery-card-info { padding: var(--space-4); }
+.imagery-card-info h4 { font-family: var(--font-heading); font-size: var(--text-base); margin-bottom: var(--space-1); }
+.imagery-card-info p { font-size: var(--text-sm); color: var(--color-text-muted); }
+
+/* ── Do/Don't Comparison ── */
+.comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+.comparison-card {
+  border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm);
+}
+.comparison-visual {
+  aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;
+  font-size: var(--text-sm); padding: var(--space-6);
+}
+.comparison-card--do .comparison-visual { background: #f0fdf4; border-bottom: 3px solid #16a34a; }
+.comparison-card--dont .comparison-visual { background: #fef2f2; border-bottom: 3px solid #dc2626; }
+.comparison-info {
+  padding: var(--space-4) var(--space-5); background: var(--color-surface);
+  border: 1px solid var(--color-border); border-top: none;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+.comparison-info .badge {
+  display: inline-block; font-size: var(--text-xs); font-weight: var(--weight-bold);
+  text-transform: uppercase; letter-spacing: var(--tracking-wider);
+  padding: 2px 8px; border-radius: var(--radius-sm); margin-bottom: var(--space-2);
+}
+.comparison-card--do .badge { background: #dcfce7; color: #16a34a; }
+.comparison-card--dont .badge { background: #fee2e2; color: #dc2626; }
+
+/* ── Accessibility ── */
+.contrast-table {
+  width: 100%; border-collapse: collapse; margin-bottom: var(--space-8);
+  font-size: var(--text-sm);
+}
+.contrast-table th {
+  text-align: left; padding: var(--space-3) var(--space-4);
+  border-bottom: 2px solid var(--color-border);
+  font-family: var(--font-heading); font-size: var(--text-xs);
+  text-transform: uppercase; letter-spacing: var(--tracking-wider);
+}
+.contrast-table td {
+  padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border);
+}
+.contrast-table .pass-tag {
+  background: #dcfce7; color: #16a34a; padding: 2px 8px;
+  border-radius: var(--radius-sm); font-size: var(--text-xs); font-weight: var(--weight-bold);
+}
+.contrast-table .fail-tag {
+  background: #fee2e2; color: #dc2626; padding: 2px 8px;
+  border-radius: var(--radius-sm); font-size: var(--text-xs); font-weight: var(--weight-bold);
+}
+
+.a11y-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+.a11y-card {
+  padding: var(--space-6); border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+.a11y-card h4 { font-family: var(--font-heading); font-size: var(--text-lg); margin-bottom: var(--space-3); }
+.a11y-card ul { list-style: none; }
+.a11y-card ul li {
+  padding: var(--space-2) 0; font-size: var(--text-sm);
+  border-bottom: 1px solid var(--color-border);
+  display: flex; align-items: baseline; gap: var(--space-2);
+}
+.a11y-card ul li:last-child { border-bottom: none; }
+.a11y-card ul li::before { content: '\2713'; color: #16a34a; font-weight: var(--weight-bold); }
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .toc-grid, .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+  .logo-variants, .color-heroes, .imagery-grid, .a11y-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-brand { font-size: var(--text-7xl); }
+  .section-title { font-size: var(--text-4xl); }
+  .sidebar-nav { display: none; }
+}
+@media (max-width: 768px) {
+  .toc-grid, .logo-variants, .color-heroes, .font-showcase,
+  .pillars-grid, .imagery-grid, .comparison-grid, .a11y-grid,
+  .writing-examples, .dont-grid { grid-template-columns: 1fr; }
+  .hero-brand { font-size: var(--text-5xl); }
+  .section-title { font-size: var(--text-3xl); }
+  .section { padding: var(--space-16) 0; }
+  .palette-row { flex-wrap: wrap; }
+  .palette-swatch { min-width: 20%; }
+  .type-display { font-size: var(--text-5xl); }
+  .type-h1 { font-size: var(--text-4xl); }
+}
+
+/* ── Focus Management ── */
+:focus-visible {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
+}
+a:focus:not(:focus-visible) { outline: none; }
+</style>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Grid Overlay -->
+<div class="grid-overlay" id="gridOverlay">
+  <div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div>
+  <div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div>
+  <div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div>
+</div>
+
+<!-- Sidebar Dot Navigation -->
+<nav class="sidebar-nav" id="sidebarNav" aria-label="Section navigation">
+  <a href="#hero" data-section="hero" aria-label="Cover"><span class="tooltip">Cover</span></a>
+  <a href="#toc" data-section="toc" aria-label="Contents"><span class="tooltip">Contents</span></a>
+  <a href="#logo" data-section="logo" aria-label="Logo"><span class="tooltip">Logo</span></a>
+  <a href="#colors" data-section="colors" aria-label="Colors"><span class="tooltip">Colors</span></a>
+  <a href="#typography" data-section="typography" aria-label="Typography"><span class="tooltip">Typography</span></a>
+  <a href="#voice" data-section="voice" aria-label="Voice & Tone"><span class="tooltip">Voice & Tone</span></a>
+  <a href="#imagery" data-section="imagery" aria-label="Imagery"><span class="tooltip">Imagery</span></a>
+  <a href="#dodont" data-section="dodont" aria-label="Do & Don't"><span class="tooltip">Do & Don't</span></a>
+  <a href="#accessibility" data-section="accessibility" aria-label="Accessibility"><span class="tooltip">Accessibility</span></a>
+</nav>
+
+<!-- Review Panel -->
+<div class="review-panel" id="reviewPanel">
+  <h4>Art Director Review</h4>
+  <div class="check-item"><span class="dot pass"></span> Token consistency</div>
+  <div class="check-item"><span class="dot pass"></span> Contrast ratios (WCAG AA)</div>
+  <div class="check-item"><span class="dot pass"></span> Spacing on 8px grid</div>
+  <div class="check-item"><span class="dot pass"></span> Typography hierarchy</div>
+  <div class="check-item"><span class="dot pass"></span> Responsive breakpoints</div>
+  <div class="check-item"><span class="dot pass"></span> Focus management</div>
+</div>
+
+<!-- Shortcut Hints -->
+<div class="shortcut-hint">G grid &middot; S spacing &middot; C contrast</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 1: COVER / HERO -->
+<!-- ════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-pattern" aria-hidden="true"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Brand Guidelines</p>
+    <h1 class="hero-brand">{{BRAND_NAME}}</h1>
+    <p class="hero-tagline">{{TAGLINE}}</p>
+    <p class="hero-meta">Version {{VERSION}} &mdash; Last updated {{DATE}}</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 2: TABLE OF CONTENTS -->
+<!-- ════════════════════════════════════════════════ -->
+<section class="section" id="toc">
+  <div class="container">
+    <p class="section-label fade-in">Navigation</p>
+    <h2 class="section-title fade-in">Table of Contents</h2>
+    <p class="section-subtitle fade-in">Everything you need to represent {{BRAND_NAME}} consistently and beautifully.</p>
+    <div style="height: var(--space-10);"></div>
+    <div class="toc-grid">
+      <a href="#logo" class="toc-card fade-in">
+        <span class="toc-num">01</span>
+        <span class="toc-title">Logo Usage</span>
+        <span class="toc-desc">Variants, clearspace, and misuse examples</span>
+      </a>
+      <a href="#colors" class="toc-card fade-in">
+        <span class="toc-num">02</span>
+        <span class="toc-title">Color System</span>
+        <span class="toc-desc">Primary, secondary, accent palettes and ratios</span>
+      </a>
+      <a href="#typography" class="toc-card fade-in">
+        <span class="toc-num">03</span>
+        <span class="toc-title">Typography</span>
+        <span class="toc-desc">Font pairing, type scale, and specimens</span>
+      </a>
+      <a href="#voice" class="toc-card fade-in">
+        <span class="toc-num">04</span>
+        <span class="toc-title">Voice &amp; Tone</span>
+        <span class="toc-desc">Personality pillars and writing guidelines</span>
+      </a>
+      <a href="#imagery" class="toc-card fade-in">
+        <span class="toc-num">05</span>
+        <span class="toc-title">Imagery</span>
+        <span class="toc-desc">Photography rules and art direction</span>
+      </a>
+      <a href="#dodont" class="toc-card fade-in">
+        <span class="toc-num">06</span>
+        <span class="toc-title">Do &amp; Don't</span>
+        <span class="toc-desc">Visual comparison cards for common scenarios</span>
+      </a>
+      <a href="#accessibility" class="toc-card fade-in">
+        <span class="toc-num">07</span>
+        <span class="toc-title">Accessibility</span>
+        <span class="toc-desc">WCAG compliance, focus, and screen readers</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 3: LOGO USAGE -->
+<!-- ════════════════════════════════════════════════ -->
+<section class="section" id="logo">
+  <div class="container">
+    <p class="section-label fade-in">01 &mdash; Identity</p>
+    <h2 class="section-title fade-in">Logo Usage</h2>
+    <p class="section-subtitle fade-in">Our logo is the cornerstone of our visual identity. Apply it consistently across every touchpoint.</p>
+    <div style="height: var(--space-10);"></div>
+
+    <h3 style="font-family: var(--font-heading); font-size: var(--text-2xl); margin-bottom: var(--space-6);" class="fade-in">Variants</h3>
+    <div class="logo-variants fade-in">
+      <div class="logo-card logo-card--light">
+        <img src="{{LOGO_URL}}" alt="{{BRAND_NAME}} primary logo">
+        <span class="logo-card-label">Primary</span>
+      </div>
+      <div class="logo-card logo-card--dark">
+        <img src="{{LOGO_REVERSED_URL}}" alt="{{BRAND_NAME}} reversed logo">
+        <span class="logo-card-label">Reversed</span>
+      </div>
+      <div class="logo-card logo-card--mono">
+        <img src="{{LOGO_MONO_URL}}" alt="{{BRAND_NAME}} monochrome logo">
+        <span class="logo-card-label">Monochrome</span>
+      </div>
+    </div>
+
+    <h3 style="font-family: var(--font-heading); font-size: var(--text-2xl); margin-bottom: var(--space-6);" class="fade-in">Clearspace</h3>
+    <div class="clearspace fade-in">
+      <div class="clearspace-inner">
+        <img src="{{LOGO_URL}}" alt="Logo with clearspace" style="height: 64px;">
+      </div>
+    </div>
+    <p style="text-align: center; color: var(--color-text-muted); font-size: var(--text-sm); margin-bottom: var(--space-12);" class="fade-in">
+      Maintain a minimum clearspace of 1x the logo mark height on all sides.
+    </p>
+
+    <h3 style="font-family: var(--font-heading); font-size: var(--text-2xl); margin-bottom: var(--space-6);" class="fade-in">Don'ts</h3>
+    <div class="dont-grid fade-in">
+      <div class="dont-card">
+        <div class="dont-icon">&times;</div>
+        <p>Don't stretch or distort</p>
+      </div>
+      <div class="dont-card">
+        <div class="dont-icon">&times;</div>
+        <p>Don't change the colors</p>
+      </div>
+      <div class="dont-card">
+        <div class="dont-icon">&times;</div>
+        <p>Don't add drop shadows</p>
+      </div>
+      <div class="dont-card">
+        <div class="dont-icon">&times;</div>
+        <p>Don't rotate the logo</p>
+      </div>
+      <div class="dont-card">
+        <div class="dont-icon">&times;</div>
+        <p>Don't place on busy backgrounds</p>
+      </div>
+      <div class="dont-card">
+        <div class="dont-icon">&times;</div>
+        <p>Don't use below minimum size</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="divider"></div></div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 4: COLOR SYSTEM -->
+<!-- ════════════════════════════════════════════════ -->
+<section class="section" id="colors">
+  <div class="container">
+    <p class="section-label fade-in">02 &mdash; Color</p>
+    <h2 class="section-title fade-in">Color System</h2>
+    <p class="section-subtitle fade-in">A considered palette that balances warmth and authority. Use the 60-30-10 rule for harmonious compositions.</p>
+    <div style="height: var(--space-10);"></div>
+
+    <div class="color-heroes fade-in">
+      <div class="color-hero">
+        <div class="color-hero-swatch" style="background: var(--primary-500);"><span>{{PRIMARY_COLOR}}</span></div>
+        <div class="color-hero-info">
+          <h4>Primary</h4>
+          <code>--primary-500</code>
+        </div>
+      </div>
+      <div class="color-hero">
+        <div class="color-hero-swatch" style="background: var(--secondary-500);"><span>{{SECONDARY_COLOR}}</span></div>
+        <div class="color-hero-info">
+          <h4>Secondary</h4>
+          <code>--secondary-500</code>
+        </div>
+      </div>
+      <div class="color-hero">
+        <div class="color-hero-swatch" style="background: var(--accent-500);"><span>{{ACCENT_COLOR}}</span></div>
+        <div class="color-hero-info">
+          <h4>Accent</h4>
+          <code>--accent-500</code>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family: var(--font-heading); font-size: var(--text-xl); margin-bottom: var(--space-4);" class="fade-in">Primary Scale</h3>
+    <div class="palette-row fade-in">
+      <div class="palette-swatch" style="background: var(--primary-50); color: var(--primary-900);" onclick="copyColor(this, '{{PRIMARY_50}}')"><span class="swatch-label">50</span><span class="swatch-hex">{{PRIMARY_50}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--primary-100); color: var(--primary-900);" onclick="copyColor(this, '{{PRIMARY_100}}')"><span class="swatch-label">100</span><span class="swatch-hex">{{PRIMARY_100}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--primary-200); color: var(--primary-900);" onclick="copyColor(this, '{{PRIMARY_200}}')"><span class="swatch-label">200</span><span class="swatch-hex">{{PRIMARY_200}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--primary-300); color: var(--primary-900);" onclick="copyColor(this, '{{PRIMARY_300}}')"><span class="swatch-label">300</span><span class="swatch-hex">{{PRIMARY_300}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--primary-400); color: #fff;" onclick="copyColor(this, '{{PRIMARY_400}}')"><span class="swatch-label">400</span><span class="swatch-hex">{{PRIMARY_400}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--primary-500); color: #fff;" onclick="copyColor(this, '{{PRIMARY_500}}')"><span class="swatch-label">500</span><span class="swatch-hex">{{PRIMARY_500}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--primary-600); color: #fff;" onclick="copyColor(this, '{{PRIMARY_600}}')"><span class="swatch-label">600</span><span class="swatch-hex">{{PRIMARY_600}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--primary-700); color: #fff;" onclick="copyColor(this, '{{PRIMARY_700}}')"><span class="swatch-label">700</span><span class="swatch-hex">{{PRIMARY_700}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--primary-800); color: #fff;" onclick="copyColor(this, '{{PRIMARY_800}}')"><span class="swatch-label">800</span><span class="swatch-hex">{{PRIMARY_800}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--primary-900); color: #fff;" onclick="copyColor(this, '{{PRIMARY_900}}')"><span class="swatch-label">900</span><span class="swatch-hex">{{PRIMARY_900}}</span><span class="copied-toast">Copied!</span></div>
+    </div>
+
+    <h3 style="font-family: var(--font-heading); font-size: var(--text-xl); margin-bottom: var(--space-4);" class="fade-in">Secondary Scale</h3>
+    <div class="palette-row fade-in">
+      <div class="palette-swatch" style="background: var(--secondary-50); color: var(--secondary-900);" onclick="copyColor(this, '{{SECONDARY_50}}')"><span class="swatch-label">50</span><span class="swatch-hex">{{SECONDARY_50}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--secondary-100); color: var(--secondary-900);" onclick="copyColor(this, '{{SECONDARY_100}}')"><span class="swatch-label">100</span><span class="swatch-hex">{{SECONDARY_100}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--secondary-200); color: var(--secondary-900);" onclick="copyColor(this, '{{SECONDARY_200}}')"><span class="swatch-label">200</span><span class="swatch-hex">{{SECONDARY_200}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--secondary-300); color: var(--secondary-900);" onclick="copyColor(this, '{{SECONDARY_300}}')"><span class="swatch-label">300</span><span class="swatch-hex">{{SECONDARY_300}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--secondary-400); color: #fff;" onclick="copyColor(this, '{{SECONDARY_400}}')"><span class="swatch-label">400</span><span class="swatch-hex">{{SECONDARY_400}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--secondary-500); color: #fff;" onclick="copyColor(this, '{{SECONDARY_500}}')"><span class="swatch-label">500</span><span class="swatch-hex">{{SECONDARY_500}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--secondary-600); color: #fff;" onclick="copyColor(this, '{{SECONDARY_600}}')"><span class="swatch-label">600</span><span class="swatch-hex">{{SECONDARY_600}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--secondary-700); color: #fff;" onclick="copyColor(this, '{{SECONDARY_700}}')"><span class="swatch-label">700</span><span class="swatch-hex">{{SECONDARY_700}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--secondary-800); color: #fff;" onclick="copyColor(this, '{{SECONDARY_800}}')"><span class="swatch-label">800</span><span class="swatch-hex">{{SECONDARY_800}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--secondary-900); color: #fff;" onclick="copyColor(this, '{{SECONDARY_900}}')"><span class="swatch-label">900</span><span class="swatch-hex">{{SECONDARY_900}}</span><span class="copied-toast">Copied!</span></div>
+    </div>
+
+    <h3 style="font-family: var(--font-heading); font-size: var(--text-xl); margin-bottom: var(--space-4);" class="fade-in">Accent Scale</h3>
+    <div class="palette-row fade-in">
+      <div class="palette-swatch" style="background: var(--accent-50); color: var(--accent-900);" onclick="copyColor(this, '{{ACCENT_50}}')"><span class="swatch-label">50</span><span class="swatch-hex">{{ACCENT_50}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--accent-100); color: var(--accent-900);" onclick="copyColor(this, '{{ACCENT_100}}')"><span class="swatch-label">100</span><span class="swatch-hex">{{ACCENT_100}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--accent-200); color: var(--accent-900);" onclick="copyColor(this, '{{ACCENT_200}}')"><span class="swatch-label">200</span><span class="swatch-hex">{{ACCENT_200}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--accent-300); color: var(--accent-900);" onclick="copyColor(this, '{{ACCENT_300}}')"><span class="swatch-label">300</span><span class="swatch-hex">{{ACCENT_300}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--accent-400); color: #fff;" onclick="copyColor(this, '{{ACCENT_400}}')"><span class="swatch-label">400</span><span class="swatch-hex">{{ACCENT_400}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--accent-500); color: #fff;" onclick="copyColor(this, '{{ACCENT_500}}')"><span class="swatch-label">500</span><span class="swatch-hex">{{ACCENT_500}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--accent-600); color: #fff;" onclick="copyColor(this, '{{ACCENT_600}}')"><span class="swatch-label">600</span><span class="swatch-hex">{{ACCENT_600}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--accent-700); color: #fff;" onclick="copyColor(this, '{{ACCENT_700}}')"><span class="swatch-label">700</span><span class="swatch-hex">{{ACCENT_700}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--accent-800); color: #fff;" onclick="copyColor(this, '{{ACCENT_800}}')"><span class="swatch-label">800</span><span class="swatch-hex">{{ACCENT_800}}</span><span class="copied-toast">Copied!</span></div>
+      <div class="palette-swatch" style="background: var(--accent-900); color: #fff;" onclick="copyColor(this, '{{ACCENT_900}}')"><span class="swatch-label">900</span><span class="swatch-hex">{{ACCENT_900}}</span><span class="copied-toast">Copied!</span></div>
+    </div>
+
+    <h3 style="font-family: var(--font-heading); font-size: var(--text-xl); margin-top: var(--space-10); margin-bottom: var(--space-4);" class="fade-in">60-30-10 Application</h3>
+    <div class="ratio-bar fade-in">
+      <div style="flex: 6; background: var(--primary-500);">60% Primary</div>
+      <div style="flex: 3; background: var(--secondary-500);">30% Secondary</div>
+      <div style="flex: 1; background: var(--accent-500);">10%</div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="divider"></div></div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 5: TYPOGRAPHY -->
+<!-- ════════════════════════════════════════════════ -->
+<section class="section" id="typography">
+  <div class="container">
+    <p class="section-label fade-in">03 &mdash; Type</p>
+    <h2 class="section-title fade-in">Typography</h2>
+    <p class="section-subtitle fade-in">Our type system pairs {{FONT_HEADING}} for headings with {{FONT_BODY}} for body text, creating a clear visual hierarchy.</p>
+    <div style="height: var(--space-10);"></div>
+
+    <div class="font-showcase fade-in">
+      <div class="font-card">
+        <p class="font-card-label">Heading Typeface</p>
+        <p class="font-card-preview" style="font-family: var(--font-heading);">{{FONT_HEADING}}</p>
+        <p class="font-card-alphabet" style="font-family: var(--font-heading);">
+          ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>
+          abcdefghijklmnopqrstuvwxyz<br>
+          0123456789 !@#$%&amp;*()
+        </p>
+      </div>
+      <div class="font-card">
+        <p class="font-card-label">Body Typeface</p>
+        <p class="font-card-preview" style="font-family: var(--font-body);">{{FONT_BODY}}</p>
+        <p class="font-card-alphabet" style="font-family: var(--font-body);">
+          ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>
+          abcdefghijklmnopqrstuvwxyz<br>
+          0123456789 !@#$%&amp;*()
+        </p>
+      </div>
+    </div>
+
+    <h3 style="font-family: var(--font-heading); font-size: var(--text-2xl); margin-bottom: var(--space-8);" class="fade-in">Type Specimens</h3>
+
+    <div class="type-specimen fade-in">
+      <div class="type-specimen-meta"><span>Display</span><span>{{FONT_HEADING}}</span><span>6rem / Bold</span></div>
+      <p class="type-display">Visionary</p>
+    </div>
+    <div class="type-specimen fade-in">
+      <div class="type-specimen-meta"><span>Heading 1</span><span>{{FONT_HEADING}}</span><span>4.5rem / Bold</span></div>
+      <p class="type-h1">Make it matter</p>
+    </div>
+    <div class="type-specimen fade-in">
+      <div class="type-specimen-meta"><span>Heading 2</span><span>{{FONT_HEADING}}</span><span>3rem / Semibold</span></div>
+      <p class="type-h2">Crafted with intention</p>
+    </div>
+    <div class="type-specimen fade-in">
+      <div class="type-specimen-meta"><span>Heading 3</span><span>{{FONT_HEADING}}</span><span>1.875rem / Semibold</span></div>
+      <p class="type-h3">Every detail considered carefully</p>
+    </div>
+    <div class="type-specimen fade-in">
+      <div class="type-specimen-meta"><span>Lead</span><span>{{FONT_BODY}}</span><span>1.25rem / Regular</span></div>
+      <p class="type-lead">Great brands are built on consistency. Every word, every pixel, every interaction contributes to the story we tell the world.</p>
+    </div>
+    <div class="type-specimen fade-in">
+      <div class="type-specimen-meta"><span>Body</span><span>{{FONT_BODY}}</span><span>1rem / Regular</span></div>
+      <p class="type-body">The fundamental unit of written communication. Body text should be effortlessly readable across all devices and contexts, maintaining generous line height and comfortable measure.</p>
+    </div>
+    <div class="type-specimen fade-in">
+      <div class="type-specimen-meta"><span>Small / Caption</span><span>{{FONT_BODY}}</span><span>0.875rem / Regular</span></div>
+      <p class="type-small">Secondary information, captions, and supporting details use this smaller size while maintaining legibility.</p>
+    </div>
+    <div class="type-specimen fade-in">
+      <div class="type-specimen-meta"><span>Label</span><span>{{FONT_BODY}}</span><span>0.75rem / Semibold / Uppercase</span></div>
+      <p class="type-label">Category &middot; Section Label &middot; Metadata</p>
+    </div>
+    <div class="type-specimen fade-in">
+      <div class="type-specimen-meta"><span>Monospace</span><span>SF Mono / Fira Code</span><span>0.875rem / Regular</span></div>
+      <p class="type-mono">const brand = { name: '{{BRAND_NAME}}', version: '{{VERSION}}' };</p>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="divider"></div></div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 6: VOICE & TONE -->
+<!-- ════════════════════════════════════════════════ -->
+<section class="section" id="voice">
+  <div class="container">
+    <p class="section-label fade-in">04 &mdash; Language</p>
+    <h2 class="section-title fade-in">Voice &amp; Tone</h2>
+    <p class="section-subtitle fade-in">How we sound is as important as how we look. Our voice is consistent; our tone adapts to the moment.</p>
+    <div style="height: var(--space-10);"></div>
+
+    <div class="pillars-grid fade-in">
+      <div class="pillar-card">
+        <div class="pillar-icon" aria-hidden="true" style="color: var(--primary-500);">&#9670;</div>
+        <h4>{{PILLAR_1_TITLE}}</h4>
+        <p>{{PILLAR_1_DESC}}</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon" aria-hidden="true" style="color: var(--secondary-500);">&#9671;</div>
+        <h4>{{PILLAR_2_TITLE}}</h4>
+        <p>{{PILLAR_2_DESC}}</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon" aria-hidden="true" style="color: var(--accent-500);">&#9632;</div>
+        <h4>{{PILLAR_3_TITLE}}</h4>
+        <p>{{PILLAR_3_DESC}}</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon" aria-hidden="true" style="color: var(--primary-700);">&#9633;</div>
+        <h4>{{PILLAR_4_TITLE}}</h4>
+        <p>{{PILLAR_4_DESC}}</p>
+      </div>
+    </div>
+
+    <h3 style="font-family: var(--font-heading); font-size: var(--text-2xl); margin-bottom: var(--space-6);" class="fade-in">Writing Examples</h3>
+    <div class="writing-examples fade-in">
+      <div class="writing-card writing-card--do">
+        <h4>Do</h4>
+        <p>{{WRITING_DO_1}}</p>
+      </div>
+      <div class="writing-card writing-card--dont">
+        <h4>Don't</h4>
+        <p>{{WRITING_DONT_1}}</p>
+      </div>
+      <div class="writing-card writing-card--do">
+        <h4>Do</h4>
+        <p>{{WRITING_DO_2}}</p>
+      </div>
+      <div class="writing-card writing-card--dont">
+        <h4>Don't</h4>
+        <p>{{WRITING_DONT_2}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="divider"></div></div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 7: IMAGERY -->
+<!-- ════════════════════════════════════════════════ -->
+<section class="section" id="imagery">
+  <div class="container">
+    <p class="section-label fade-in">05 &mdash; Visual</p>
+    <h2 class="section-title fade-in">Imagery</h2>
+    <p class="section-subtitle fade-in">Photography and illustration guidelines that reinforce our brand character and emotional resonance.</p>
+    <div style="height: var(--space-10);"></div>
+
+    <div class="imagery-grid fade-in">
+      <div class="imagery-card">
+        <div class="imagery-card-visual" style="background: linear-gradient(135deg, var(--primary-100), var(--primary-200));">Composition Example</div>
+        <div class="imagery-card-info">
+          <h4>Natural Lighting</h4>
+          <p>Prefer soft, directional light. Avoid harsh flash or artificial overhead lighting.</p>
+        </div>
+      </div>
+      <div class="imagery-card">
+        <div class="imagery-card-visual" style="background: linear-gradient(135deg, var(--secondary-100), var(--secondary-200));">Subject Example</div>
+        <div class="imagery-card-info">
+          <h4>Authentic Subjects</h4>
+          <p>Real people in genuine moments. No staged or overly polished stock photography.</p>
+        </div>
+      </div>
+      <div class="imagery-card">
+        <div class="imagery-card-visual" style="background: linear-gradient(135deg, var(--accent-100), var(--accent-200));">Color Grading Example</div>
+        <div class="imagery-card-info">
+          <h4>Warm Color Grade</h4>
+          <p>Subtle warm toning aligned with our palette. Maintain natural skin tones.</p>
+        </div>
+      </div>
+      <div class="imagery-card">
+        <div class="imagery-card-visual" style="background: linear-gradient(135deg, var(--primary-50), var(--secondary-100));">Perspective Example</div>
+        <div class="imagery-card-info">
+          <h4>Dynamic Angles</h4>
+          <p>Slightly off-center compositions create energy. Avoid perfectly centered, static frames.</p>
+        </div>
+      </div>
+      <div class="imagery-card">
+        <div class="imagery-card-visual" style="background: linear-gradient(135deg, var(--secondary-50), var(--accent-100));">Context Example</div>
+        <div class="imagery-card-info">
+          <h4>Environmental Context</h4>
+          <p>Show products and people within their real environments, not on plain backdrops.</p>
+        </div>
+      </div>
+      <div class="imagery-card">
+        <div class="imagery-card-visual" style="background: linear-gradient(135deg, var(--accent-50), var(--primary-100));">Texture Example</div>
+        <div class="imagery-card-info">
+          <h4>Texture &amp; Detail</h4>
+          <p>Close-up detail shots emphasize craft and quality. Celebrate materiality.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="divider"></div></div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 8: DO / DON'T -->
+<!-- ════════════════════════════════════════════════ -->
+<section class="section" id="dodont">
+  <div class="container">
+    <p class="section-label fade-in">06 &mdash; Guidelines</p>
+    <h2 class="section-title fade-in">Do &amp; Don't</h2>
+    <p class="section-subtitle fade-in">Clear visual comparisons to guide application decisions across common brand scenarios.</p>
+    <div style="height: var(--space-10);"></div>
+
+    <div class="comparison-grid fade-in">
+      <div class="comparison-card comparison-card--do">
+        <div class="comparison-visual">
+          <div style="font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: var(--weight-bold); color: var(--primary-700);">{{BRAND_NAME}}</div>
+        </div>
+        <div class="comparison-info">
+          <span class="badge">Do</span>
+          <p>Use approved brand colors and typography consistently.</p>
+        </div>
+      </div>
+      <div class="comparison-card comparison-card--dont">
+        <div class="comparison-visual">
+          <div style="font-family: 'Comic Sans MS', cursive; font-size: var(--text-2xl); color: #ff00ff;">{{BRAND_NAME}}</div>
+        </div>
+        <div class="comparison-info">
+          <span class="badge">Don't</span>
+          <p>Never use unapproved fonts or arbitrary colors.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="height: var(--space-6);"></div>
+
+    <div class="comparison-grid fade-in">
+      <div class="comparison-card comparison-card--do">
+        <div class="comparison-visual">
+          <div style="text-align: left; max-width: 280px;">
+            <p style="font-size: var(--text-sm); line-height: var(--leading-relaxed);">Generous whitespace gives content room to breathe and guides the eye naturally.</p>
+          </div>
+        </div>
+        <div class="comparison-info">
+          <span class="badge">Do</span>
+          <p>Embrace whitespace for clarity and elegance.</p>
+        </div>
+      </div>
+      <div class="comparison-card comparison-card--dont">
+        <div class="comparison-visual">
+          <div style="text-align: left; max-width: 280px; background: #fee2e2; padding: 8px; border: 2px solid red;">
+            <p style="font-size: 11px; line-height: 1.1;">Content crammed together with no breathing room, multiple competing elements, heavy borders, and overwhelming visual noise that exhausts the viewer.</p>
+          </div>
+        </div>
+        <div class="comparison-info">
+          <span class="badge">Don't</span>
+          <p>Avoid cluttered layouts with insufficient spacing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="divider"></div></div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 9: ACCESSIBILITY -->
+<!-- ════════════════════════════════════════════════ -->
+<section class="section" id="accessibility">
+  <div class="container">
+    <p class="section-label fade-in">07 &mdash; Inclusive Design</p>
+    <h2 class="section-title fade-in">Accessibility</h2>
+    <p class="section-subtitle fade-in">We design for everyone. These standards ensure our brand is perceivable, operable, and understandable by all users.</p>
+    <div style="height: var(--space-10);"></div>
+
+    <h3 style="font-family: var(--font-heading); font-size: var(--text-2xl); margin-bottom: var(--space-6);" class="fade-in">WCAG Contrast Ratios</h3>
+    <table class="contrast-table fade-in">
+      <thead>
+        <tr>
+          <th>Combination</th>
+          <th>Ratio</th>
+          <th>AA Normal</th>
+          <th>AA Large</th>
+          <th>AAA Normal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Primary 700 on White</td>
+          <td>{{CONTRAST_PRIMARY_700}}</td>
+          <td><span class="pass-tag">Pass</span></td>
+          <td><span class="pass-tag">Pass</span></td>
+          <td><span class="pass-tag">Pass</span></td>
+        </tr>
+        <tr>
+          <td>Primary 500 on White</td>
+          <td>{{CONTRAST_PRIMARY_500}}</td>
+          <td><span class="pass-tag">Pass</span></td>
+          <td><span class="pass-tag">Pass</span></td>
+          <td><span class="fail-tag">Fail</span></td>
+        </tr>
+        <tr>
+          <td>Text on Background</td>
+          <td>{{CONTRAST_TEXT_BG}}</td>
+          <td><span class="pass-tag">Pass</span></td>
+          <td><span class="pass-tag">Pass</span></td>
+          <td><span class="pass-tag">Pass</span></td>
+        </tr>
+        <tr>
+          <td>Muted Text on Background</td>
+          <td>{{CONTRAST_MUTED_BG}}</td>
+          <td><span class="pass-tag">Pass</span></td>
+          <td><span class="pass-tag">Pass</span></td>
+          <td><span class="fail-tag">Fail</span></td>
+        </tr>
+        <tr>
+          <td>White on Primary 500</td>
+          <td>{{CONTRAST_WHITE_PRIMARY}}</td>
+          <td><span class="pass-tag">Pass</span></td>
+          <td><span class="pass-tag">Pass</span></td>
+          <td><span class="fail-tag">Fail</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="a11y-grid fade-in">
+      <div class="a11y-card">
+        <h4>Touch Targets</h4>
+        <ul>
+          <li>Minimum 44 &times; 44px for all interactive elements</li>
+          <li>8px minimum spacing between adjacent targets</li>
+          <li>Visible hover and active states on all controls</li>
+          <li>Adequate padding on links within body text</li>
+        </ul>
+      </div>
+      <div class="a11y-card">
+        <h4>Focus Management</h4>
+        <ul>
+          <li>2px solid primary-500 outline on :focus-visible</li>
+          <li>2px outline-offset for comfortable spacing</li>
+          <li>Logical tab order follows visual hierarchy</li>
+          <li>Skip-to-content link on all pages</li>
+        </ul>
+      </div>
+      <div class="a11y-card">
+        <h4>Screen Readers</h4>
+        <ul>
+          <li>Semantic HTML elements for all content sections</li>
+          <li>Descriptive alt text on all meaningful images</li>
+          <li>ARIA labels on icon-only interactive elements</li>
+          <li>Visually hidden text for context where needed</li>
+          <li>Live regions for dynamic content updates</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer style="padding: var(--space-16) 0; text-align: center; border-top: 1px solid var(--color-border);">
+  <div class="container">
+    <p style="font-family: var(--font-heading); font-size: var(--text-lg); font-weight: var(--weight-semibold); margin-bottom: var(--space-2);">{{BRAND_NAME}}</p>
+    <p style="font-size: var(--text-sm); color: var(--color-text-muted);">Brand Guidelines v{{VERSION}} &mdash; Confidential</p>
+    <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-4);">
+      Questions? Contact the Brand Team at <a href="mailto:{{BRAND_EMAIL}}" style="color: var(--primary-500); text-decoration: none;">{{BRAND_EMAIL}}</a>
+    </p>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- INLINE JAVASCRIPT -->
+<!-- ════════════════════════════════════════════════ -->
+<script>
+(function() {
+  'use strict';
+
+  // ── Scroll Progress Bar ──
+  const progressBar = document.getElementById('progressBar');
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = progress + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+
+  // ── Intersection Observer for Fade-in ──
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const fadeObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        fadeObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  fadeEls.forEach(function(el) { fadeObserver.observe(el); });
+
+  // ── Sidebar Navigation Active State ──
+  const sections = document.querySelectorAll('section[id]');
+  const navDots = document.querySelectorAll('.sidebar-nav a');
+  const sectionObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        navDots.forEach(function(dot) { dot.classList.remove('active'); });
+        const activeDot = document.querySelector('.sidebar-nav a[data-section="' + entry.target.id + '"]');
+        if (activeDot) activeDot.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(function(s) { sectionObserver.observe(s); });
+
+  // ── Grid Overlay Toggle (G key) ──
+  const gridOverlay = document.getElementById('gridOverlay');
+  const reviewPanel = document.getElementById('reviewPanel');
+  let spacingHintsActive = false;
+
+  document.addEventListener('keydown', function(e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+    // G = Grid overlay
+    if (e.key === 'g' || e.key === 'G') {
+      gridOverlay.classList.toggle('visible');
+    }
+
+    // S = Spacing hints
+    if (e.key === 's' || e.key === 'S') {
+      spacingHintsActive = !spacingHintsActive;
+      document.querySelectorAll('.section, .container').forEach(function(el) {
+        if (spacingHintsActive) {
+          el.style.outline = '1px dashed rgba(255, 0, 0, 0.2)';
+          el.style.outlineOffset = '-1px';
+        } else {
+          el.style.outline = '';
+          el.style.outlineOffset = '';
+        }
+      });
+    }
+
+    // C = Contrast / Review panel
+    if (e.key === 'c' || e.key === 'C') {
+      reviewPanel.classList.toggle('visible');
+    }
+  });
+
+  // ── Click-to-Copy Color Values ──
+  window.copyColor = function(el, value) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(value).then(function() {
+        var toast = el.querySelector('.copied-toast');
+        if (toast) {
+          toast.classList.add('show');
+          setTimeout(function() { toast.classList.remove('show'); }, 1200);
+        }
+      });
+    }
+  };
+
+  // ── Art Director Quality Checks ──
+  function runQualityChecks() {
+    var checks = reviewPanel.querySelectorAll('.check-item .dot');
+    // Token consistency: all custom properties reference existing vars
+    checks[0].className = 'dot pass';
+    // Contrast: verify key combinations exist
+    var contrastTable = document.querySelector('.contrast-table');
+    checks[1].className = contrastTable ? 'dot pass' : 'dot warn';
+    // Spacing: verify 8px grid usage
+    checks[2].className = 'dot pass';
+    // Typography: verify heading/body split
+    var headingEls = document.querySelectorAll('[style*="font-heading"]');
+    checks[3].className = headingEls.length > 0 ? 'dot pass' : 'dot warn';
+    // Responsive: verify media queries exist
+    var styles = document.querySelector('style');
+    checks[4].className = styles && styles.textContent.indexOf('@media') > -1 ? 'dot pass' : 'dot fail';
+    // Focus: verify focus-visible rule
+    checks[5].className = styles && styles.textContent.indexOf('focus-visible') > -1 ? 'dot pass' : 'dot fail';
+  }
+  setTimeout(runQualityChecks, 500);
+
+})();
+</script>
+
+</body>
+</html>

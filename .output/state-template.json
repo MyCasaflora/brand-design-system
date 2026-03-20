@@ -1,0 +1,53 @@
+{
+  "_comment": "state.json Template — wird pro Brand in .output/{{brand-slug}}/state.json angelegt",
+  "brand_slug": "{{brand-slug}}",
+  "brand_name": "{{Brand Name}}",
+  "created_at": "{{ISO8601}}",
+  "updated_at": "{{ISO8601}}",
+  "phases": {
+    "0_intelligence": {
+      "status": "pending",
+      "completed_at": null
+    },
+    "1_tokens": {
+      "status": "pending",
+      "completed_at": null
+    },
+    "2_generation": {
+      "status": "pending",
+      "completed_at": null
+    },
+    "3_review": {
+      "status": "pending",
+      "completed_at": null,
+      "iteration": 0,
+      "last_score": null,
+      "blind_spot_score": null
+    },
+    "4_extension": {
+      "status": "pending",
+      "completed_at": null,
+      "scope": null
+    },
+    "5_export": {
+      "status": "pending",
+      "completed_at": null,
+      "formats": [],
+      "handoff_profile": null
+    }
+  },
+  "config": {
+    "reference_brand": "Stripe",
+    "export_format": "all",
+    "handoff_profile": "developer",
+    "max_art_director_iterations": 3
+  },
+  "inputs": {
+    "brand_name": null,
+    "industry": null,
+    "website_url": null,
+    "logo_path": null,
+    "color_primary": null,
+    "brand_description": null
+  }
+}

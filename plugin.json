@@ -1,0 +1,54 @@
+{
+  "name": "brand-design-system",
+  "version": "1.0.0",
+  "description": "Vollautomatisches Brand Design System — von Research bis Export",
+  "author": "brand-system-builders",
+  "skills": [
+    "skills/brand-intelligence",
+    "skills/brand-generator",
+    "skills/brand-reviewer",
+    "skills/brand-ui-extension",
+    "skills/brand-export"
+  ],
+  "agents": [
+    "agents/art-director"
+  ],
+  "references": [
+    "references/voice-and-tone.md",
+    "references/blind-spots-checklist.md",
+    "references/image-generation.md",
+    "references/icp-templates.md",
+    "references/accessibility-rules.md",
+    "references/extended-tokens.md",
+    "references/design-tokens.md",
+    "references/design-tokens-template.css",
+    "references/token-generation-logic.md",
+    "references/layout-patterns.md"
+  ],
+  "commands": [
+    "commands/brand-intelligence.md",
+    "commands/brand-generate.md",
+    "commands/brand-review.md",
+    "commands/brand-extend.md",
+    "commands/brand-export.md",
+    "commands/brand-full.md"
+  ],
+  "scripts": [
+    "scripts/export-pdf.sh",
+    "scripts/export-figma.sh",
+    "scripts/handoff-package.sh",
+    "scripts/check-deps.sh",
+    "scripts/token-generator.js"
+  ],
+  "dependencies": {
+    "skills": ["openrouter-skill-v3"],
+    "mcp": ["figma", "filesystem"],
+    "tools": ["WebSearch", "WebFetch", "Bash", "Read", "Write"]
+  },
+  "config": {
+    "output_dir": ".output",
+    "default_reference_brand": "Stripe",
+    "max_art_director_iterations": 3,
+    "openrouter_default_model": "google/gemini-3.1-flash-image-preview"
+  }
+}

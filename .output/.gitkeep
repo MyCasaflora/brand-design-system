@@ -1,0 +1,3 @@
+# .output/ — Runtime-Output-Verzeichnis (pro Brand)
+# Wird beim ersten /brand-generate automatisch erstellt.
+# Struktur: .output/{{brand-slug}}/state.json, design-tokens.css, brand-guidelines.html, ...

@@ -1,0 +1,19 @@
+# Generated output
+.output/*
+!.output/.gitkeep
+!.output/state-template.json
+
+# Environment
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+
+# Temp
+.tmp/
+*.tmp
