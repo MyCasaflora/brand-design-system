@@ -1,4 +1,4 @@
-# Brand Design System v1.0
+# Brand Design System v1.1
 
 Vollautomatisches Brand Design System Plugin fuer [Claude Code](https://claude.ai/claude-code) — von Market Research bis Figma Export.
 
@@ -252,14 +252,28 @@ HTML rendern → Screenshot → Vision AI Analyse → Fixes → Repeat (max 3x)
 
 ## Roadmap
 
-- [ ] Figma Bridge End-to-End Test (Token Push + Verifikation)
+- [x] Figma Bridge End-to-End Test (Token Push + Verifikation)
 - [ ] Figma PAT mit `file_variables` Scope fuer REST API Fallback
-- [ ] Plugin Deployment nach `~/.claude/plugins/`
+- [x] Plugin Deployment nach `~/.claude/plugins/`
 - [ ] End-to-End Test mit `/brand-full`
 - [ ] CI/CD Pipeline fuer automatische Validierung
 - [ ] Marketplace-Listing
 
 ## Changelog
+
+### v1.1.0 (2026-03-21)
+
+**Figma Integration + System Deployment**
+
+- Figma Desktop Bridge Schreibzugriff verifiziert (Token Push erfolgreich)
+- Plugin nach `~/.claude/plugins/` deployed und Smoke-Test bestanden
+- Erster Real-World-Test: WFDE Brand Guidelines generiert (Design Tokens + 16-Sektionen HTML)
+- Dependency Check Script (`check-deps.sh`) validiert: Node.js, Playwright MCP, Figma MCP, OpenRouter
+- GitHub Repository synchronisiert
+
+### v1.0.1 (2026-03-20)
+
+- Fix: Executable Permissions fuer alle Plugin Scripts
 
 ### v1.0.0 (2026-03-20)
 
